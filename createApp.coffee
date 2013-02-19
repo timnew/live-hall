@@ -1,0 +1,28 @@
+require('coffee-script')
+require('./initEnvironment')
+
+http = require('http')
+express = require('express')
+
+app = express()
+
+app.configure ->
+  app.set 'port', process.env.PORT || configuration.port
+  app.set 'views', rootPath.views()
+  app.set 'view engine', 'jade'
+  app.use express.favicon()
+  app.use express.logger('dev')
+  app.use express.bodyParser()
+  app.use express.methodOverride()
+  app.use app.router
+  app.use express.static rootPath.public()
+
+app.configure 'development', ->
+  app.use express.errorHandler()
+
+app.configure 'test', ->
+  app.use express.errorHandler()
+
+require('./config/routes')(app)
+
+exports = module.exports = app
