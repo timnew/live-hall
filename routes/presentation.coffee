@@ -1,5 +1,7 @@
 exports.view = (req, res) ->
-  res.render 'view'
+  template = req.params.template ? 'deckjs'
+  res.render "#{template}/view"
 
 exports.control = (req, res) ->
-  res.render 'control'
+  template = req.params.template ? 'deckjs'
+  res.render "#{template}/control"
