@@ -1,0 +1,92 @@
+!!! 5
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    meta(name='viewport', content='width=1024, user-scalable=no')
+
+    title Your deck.js Presentation
+
+    // Required stylesheet
+    link(rel='stylesheet', href='/deckjs/core/deck.core.css')
+
+    // Extension CSS files go here. Remove or add as needed.
+    link(rel='stylesheet', href='/deckjs/extensions/goto/deck.goto.css')
+    link(rel='stylesheet', href='/deckjs/extensions/menu/deck.menu.css')
+    link(rel='stylesheet', href='/deckjs/extensions/navigation/deck.navigation.css')
+    link(rel='stylesheet', href='/deckjs/extensions/status/deck.status.css')
+    link(rel='stylesheet', href='/deckjs/extensions/hash/deck.hash.css')
+    link(rel='stylesheet', href='/deckjs/extensions/scale/deck.scale.css')
+
+    // Style theme. More available in /themes/style/ or create your own.
+    block theme
+      link(rel='stylesheet', href='/deckjs/themes/style/web-2.0.css')
+
+    // Transition theme. More available in /themes/transition/ or create your own.
+    block transition
+      link(rel='stylesheet', href='/deckjs/themes/transition/horizontal-slide.css')
+
+    // Required Modernizr file
+    script(src='/deckjs/modernizr.custom.js')
+
+  body.deck-container
+    // Begin slides. Just make elements with a class of slide.
+
+    block slides
+      section.slide
+        h1 Slide
+
+      section.slide
+        h1 Content
+
+      section.slide
+        h1 Here
+
+    // End slides.
+
+    // Begin extension snippets. Add or remove as needed.
+
+    // deck.navigation snippet
+    a.deck-prev-link(href='#', title='Previous') ←
+    a.deck-next-link(href='#', title='Next') →
+
+    // deck.status snippet
+    p.deck-status
+      span.deck-status-current
+      | /
+      span.deck-status-total
+
+    // deck.goto snippet
+    form.goto-form(action='.', method='get')
+      label(for='goto-slide') Go to slide:
+      input#goto-slide(type='text', name='slidenum', list='goto-datalist')
+      datalist#goto-datalist
+      input(type='submit', value='Go')
+
+    // deck.hash snippet
+    a.deck-permalink(href='.', title='Permalink to this slide') #
+
+    // End extension snippets.
+
+    // Required JS files.
+    script(src='/deckjs/jquery-1.7.2.min.js')
+    script(src='/deckjs/core/deck.core.js')
+
+    // Extension JS files. Add or remove as needed.
+    script(src='/deckjs/core/deck.core.js')
+    script(src='/deckjs/extensions/hash/deck.hash.js')
+    script(src='/deckjs/extensions/menu/deck.menu.js')
+    script(src='/deckjs/extensions/goto/deck.goto.js')
+    script(src='/deckjs/extensions/status/deck.status.js')
+    script(src='/deckjs/extensions/navigation/deck.navigation.js')
+    script(src='/deckjs/extensions/scale/deck.scale.js')
+
+    // Live Presentation Extension
+    block live-presentation
+      script(src='/deckjs/extensions/live-presentation/subscriber.js')
+
+    // Initialize the deck. You can put this in an external file if desired.
+    script
+      $(function() {
+        $.deck('.slide');
+      });

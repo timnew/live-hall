@@ -1,7 +1,6 @@
 EventEmitter = require('events').EventEmitter
 
 class EventSource extends EventEmitter
-  
 
 source = new EventSource()
 
@@ -12,8 +11,10 @@ exports.publish = (req, res) ->
 exports.subscribe = (req, res) ->
   req.socket.setTimeout(Infinity)
 
-  onMessage = (data) ->
-    json = JSON.stringify(data)
+  onMessage = (message, event, id) ->
+    json = JSON.stringify(message)
+    res.write "id: #{id}" if id?
+    res.write "event: #{event}" if event?
     res.write "data: #{json}\n\n"
     
   source.on 'go', onMessage
