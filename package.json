@@ -3,7 +3,7 @@
   "name": "live-hall",
   "version": "0.0.1",
   "engines": {
-    "node": "0.8.15",
+    "node": "0.8.19",
     "npm":  "1.2.12"
   },
   "scripts": {
