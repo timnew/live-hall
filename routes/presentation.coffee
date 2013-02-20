@@ -1,11 +1,17 @@
-exports.view = (req, res) ->
-  template = req.query.template ? 'deckjs'
-  console.log "Template Engine: #{template}"
+viewEngines =
+  'deck': 'deckjs'
+  'deckjs': 'deckjs'
+  'reveal': 'revealjs'
+  'revealjs': 'revealjs'
 
-  res.render "#{template}/view"
+exports.index = (req, res) ->
+  options =
+    id: req.params[0]
+    engine: viewEngines[req.params[1] ? 'deck']
+    control: !!req.query.control or req.query.control == ''
 
-exports.control = (req, res) ->
-  template = req.query.template ? 'deckjs'
-  console.log "Template Engine: #{template}"
+  console.log options
 
-  res.render "#{template}/control"
+  return req.end 404 unless options.engine?
+
+  res.render "#{options.engine}/view", options
