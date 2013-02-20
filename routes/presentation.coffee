@@ -12,6 +12,6 @@ exports.index = (req, res) ->
 
   console.log options
 
-  return req.end 404 unless options.engine?
+  return req.send 404 unless options.engine?
 
   res.render "#{options.engine}/view", options
