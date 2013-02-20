@@ -7,7 +7,5 @@ require('coffee-script');
 require('chai').should();
 require('../initEnvironment');
 
-require('./helpers/resetMemDb');
-//require('./helpers/SinonRestoreHelper')
 
 
