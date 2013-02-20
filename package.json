@@ -1,11 +1,14 @@
+
 {
-  "name": "playup-ticket-service",
+  "name": "live-hall",
   "version": "0.0.1",
-  "private": true,
+  "engines": {
+    "node": "0.8.15",
+    "npm":  "1.2.12"
+  },
   "scripts": {
     "start": "coffee app"
   },
-  "engine": "0.8.15",
   "readme": "README.md",
   "dependencies": {
     "coffee-script":"1.4.0",
