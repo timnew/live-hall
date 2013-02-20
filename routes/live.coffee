@@ -5,6 +5,7 @@ class EventSource extends EventEmitter
 source = new EventSource()
 
 exports.publish = (req, res) ->
+  console.log req.body
   source.emit('go', req.body)
   res.send 200
 
