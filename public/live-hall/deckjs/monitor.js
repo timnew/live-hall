@@ -1,5 +1,5 @@
 $(document).bind('deck.change', function(event, from, to) {
-   data = {
+   var data = {
      from: from,
      to: to
    };
