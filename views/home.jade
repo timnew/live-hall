@@ -13,14 +13,14 @@ block page
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.brand(href='/') Live Hall
+          a.brand(href='#', onclick="$('#home-carousel').carousel(0)") Live Hall
 
           .nav-collapse.collapse
             ul.nav
-              li.active
-                a(href='/room/public') Public Rooms
               li
-                a(href='/room/create') Create Room
+                a(href='#', onclick="$('#home-carousel').carousel(1)") Public Rooms
+              li
+                a(href='#', onclick="$('#home-carousel').carousel(2)") Create Room
               li
 
               li.dropdown
