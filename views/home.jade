@@ -1,1 +1,93 @@
 extends layout
+
+block stylesheets
+  link(href='/live-hall/home/home.css', rel='stylesheet')
+
+block page
+  .navbar-wrapper
+    // Wrap the .navbar in .container to center it within the absolutely positioned parent.
+    .container
+      .navbar.navbar-inverse
+        .navbar-inner
+          button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.brand(href='/') Live Hall
+
+          .nav-collapse.collapse
+            ul.nav
+              li.active
+                a(href='/room/public') Public Rooms
+              li
+                a(href='/room/create') Create Room
+              li
+
+              li.dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown')
+                  | Contact
+                  b.caret
+                ul.dropdown-menu
+                  li
+                    a(href='http://github.com/timnew') Github
+                  li
+                    a(href='https://twitter.com/timnew') Twitter
+                  li
+                    a(href='mailto:timnew.wti@gmail.com') Email
+
+  #home-carousel.carousel.slide
+    .carousel-inner
+      .item.active
+        img(src='/live-hall/home/hall.jpg', alt='')
+        .container
+          .carousel-caption
+            h1 Live Hall
+            p.lead
+              | Live hall is an HTML based Slides present solution 
+              | It allow you to display the slides over the internet
+            a.btn.btn-large.btn-primary(href='#') Learn More
+      .item
+        img(src='/live-hall/home/room.jpg', alt='')
+        .container
+          .carousel-caption
+            h1 Room
+            p.lead
+              | Room is separate space for you to share the slides to a specific group of people
+              | Only the people in the same room can view your slides
+            a.btn.btn-large.btn-primary(href='/room/create') Create a room
+      .item
+        img(src='/live-hall/home/public.jpg', alt='')
+        .container
+          .carousel-caption
+            h1 Public Rooms
+            p.lead
+              | There are a number of rooms created by other users
+              | You can have look at these rooms
+            a.btn.btn-large.btn-primary(href='/room/public') Take me there
+    a.left.carousel-control(href='#home-carousel', data-slide='prev') ‹
+    a.right.carousel-control(href='#home-carousel', data-slide='next') ›
+
+  .container.marketing
+    //
+      hr.featurette-divider
+      .featurette
+      hr.featurette-divider
+      .featurette
+      hr.featurette-divider
+      .featurette
+      hr.featurette-divider
+
+    footer
+      p
+        | © 2013 TimNew · 
+        a(href='http://github.com/timnew') Github
+        |  · 
+        a(href='http://twitter.com/timnew') Twitter
+
+block body-scripts
+  script
+    !function ($) {
+      $(function () {
+        $('#home-carousel').carousel()
+      })
+    }(window.jQuery)

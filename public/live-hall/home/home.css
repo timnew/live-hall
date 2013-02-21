@@ -97,7 +97,7 @@ body {
 
 .carousel-caption h1,
 .carousel-caption .lead {
-    margin: 0;
+    margin: 0 0 10px 0;
     line-height: 1.25;
     color: #fff;
     text-shadow: 0 1px 1px rgba(0, 0, 0, .4);
