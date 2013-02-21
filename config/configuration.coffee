@@ -1,18 +1,10 @@
-_ = require('underscore')
+process.env.NODE_ENV = process.env.NODE_ENV?.toLowerCase() ? 'development'
 
-config = {}
-
-#TODO make the configuration is built when needed
-
-config['common'] =
+class Config
   port: 80
 
-config['development'] =
+class Config.development extends Config
   port: 3009
 
-_.extend exports, config.common
 
-specificConfig = config[process.env.NODE_ENV ? 'development']
-
-if specificConfig?
-  _.extend exports, specificConfig
+module.exports = new Config[process.env.NODE_ENV]()
