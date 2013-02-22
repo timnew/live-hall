@@ -1,9 +1,14 @@
 $(function () {
     var currentPage;
+
     $(document).bind('deck.change', function (event, from, to) {
         currentPage = to;
     });
-    var source = new EventSource('/live');
+
+    var roomId = $('[data-room]').data('room')
+    var liveUrl = "/live/" + roomId
+
+    var source = new EventSource(liveUrl);
     source.addEventListener('message', function (e) {
         data = JSON.parse(e.data)
         console.log("SSE: [" + e.type + "] " + e.data);

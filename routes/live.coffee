@@ -2,15 +2,25 @@ EventEmitter = require('events').EventEmitter
 
 class EventSource extends EventEmitter
 
-source = new EventSource()
+
+EventSources = {}
+
+getSource = (roomId) ->
+  EventSources[roomId] ?= new EventSource()
 
 exports.publish = (req, res) ->
-  console.log req.body
+  console.log req.params.roomId, req.body
+
+  source = getSource(req.params.roomId)
   source.emit('go', req.body)
+
   res.send 200
 
 exports.subscribe = (req, res) ->
   req.socket.setTimeout(Infinity)
+
+  console.log req.params
+  source = getSource(req.params.roomId)
 
   onMessage = (message, event, id) ->
     json = JSON.stringify(message)
