@@ -15,7 +15,8 @@
     "express": "3.0.4",
     "underscore": "1.4.2",
     "jade": "0.27.7",
-    "connect-assets": "2.3.3"
+    "connect-assets": "2.3.3",
+    "stylus":"0.32.0"    
   },
   "devDependencies": {
     "supervisor": "0.5.0",
