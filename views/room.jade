@@ -1,7 +1,7 @@
 extends layout
 
 block stylesheets
-  link(href='/live-hall/room/room.css', rel='stylesheet')
+  != assets.css('room')
 
 block page
   .navbar-wrapper
@@ -55,13 +55,4 @@ block page
         a(href='http://twitter.com/timnew') Twitter
 
 block body-scripts
-  script(src='/live-hall/jquery.qrcode.min.js')
-  script
-    !function ($) {
-      $(function () {
-        $('[data-qrcode]').each(function(){
-          $this = $(this)
-          $this.qrcode($this.data('qrcode'));
-        });
-      });
-    }(window.jQuery);
+  != assets.js('room')

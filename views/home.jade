@@ -85,9 +85,5 @@ block page
         a(href='http://twitter.com/timnew') Twitter
 
 block body-scripts
-  script
-    !function ($) {
-      $(function () {
-        $('#home-carousel').carousel()
-      })
-    }(window.jQuery)
+  != assets.js('home')
+

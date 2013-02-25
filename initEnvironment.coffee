@@ -8,3 +8,4 @@ global.configuration = require(rootPath.config('configuration'))
 global.Services = createLazyLoader rootPath.services()
 global.Routes = createLazyLoader rootPath.routes()
 global.Models = createLazyLoader rootPath.models()
+global.assets = {} # initialize this context for connect-assets helpers

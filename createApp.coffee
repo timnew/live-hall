@@ -15,6 +15,15 @@ app.configure ->
   app.use express.bodyParser()
   app.use express.methodOverride()
   app.use app.router
+
+  app.use require('connect-assets') # customize this in production and heroku environment
+    src: 'assets'
+    helperContext: global.assets
+    build: false
+    detectChanges: true
+    minifyBuilds: true
+    pathsOnly: false
+
   app.use express.static rootPath.public()
 
 app.configure 'development', ->
