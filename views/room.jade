@@ -34,17 +34,17 @@ block navbar
                   a(href='mailto:timnew.wti@gmail.com') Email
 
 block page-content
-  .container.marketing
-    ul
-      li
-        a(href=viewUrl, target='_blank') View
-          div(data-qrcode=viewUrl)
-      li
-        a(href=controlUrl, target='_blank') Control
-          div(data-qrcode=controlUrl)
-      li
-        != clientCount
-        | Clients
+  .container
+    .jumbotron
+      h1 Room Name
+      p.lead
+        | Room Description
+
+      p
+        a.btn.btn-primary.btn-large(href=viewUrl, target='_blank') Join...
+
+
+
 
 block body-scripts
   != assets.js('room')

@@ -3,4 +3,8 @@
 $ ->
   $('[data-qrcode]').each ->
     $this = $(this)
-    $this.qrcode($this.data('qrcode'))
+    $this.qrcode
+      text: $this.data('qrcode')
+      width: 128
+      height: 128
+

@@ -12,6 +12,7 @@ html(lang='en')
     // Le styles
     link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet')
     link(href='/bootstrap/css/bootstrap-responsive.min.css', rel='stylesheet')
+    != assets.css('footer')
     block stylesheets
 
     // HTML5 shim, for IE6-8 support of HTML5 elements
@@ -28,7 +29,6 @@ html(lang='en')
     - // link(rel='shortcut icon', href='../assets/ico/favicon.png')
   body
     block page
-
 
     script(src='/live-hall/jquery-1.9.1.min.js')
     script(src='/bootstrap/js/bootstrap.min.js')
