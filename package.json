@@ -14,7 +14,8 @@
     "coffee-script":"1.4.0",
     "express": "3.0.4",
     "underscore": "1.4.2",
-    "jade": "0.27.7"
+    "jade": "0.27.7",
+    "connect-assets": "2.3.3"
   },
   "devDependencies": {
     "supervisor": "0.5.0",
