@@ -7,3 +7,4 @@ global.configuration = require(rootPath.config('configuration'))
 
 global.Services = createLazyLoader rootPath.services()
 global.Routes = createLazyLoader rootPath.routes()
+global.Models = createLazyLoader rootPath.models()

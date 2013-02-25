@@ -5,6 +5,7 @@ class Config
 
 class Config.development extends Config
   port: 3009
-
+  redis:
+    host: 'localhost'
 
 module.exports = new Config[process.env.NODE_ENV]()
