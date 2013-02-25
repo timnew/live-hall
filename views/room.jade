@@ -1,40 +1,39 @@
-extends layout
+extends page
 
 block stylesheets
   != assets.css('room')
 
-block page
-  .navbar-wrapper
-    // Wrap the .navbar in .container to center it within the absolutely positioned parent.
-    .container
-      .navbar.navbar-inverse
-        .navbar-inner
-          button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.brand(href='/') Live Hall
+block navbar
+  .container
+    .navbar.navbar-inverse
+      .navbar-inner
+        button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.brand(href='/') Live Hall
 
-          .nav-collapse.collapse
-            ul.nav
-              li
-                a(href="/room/#{roomId}") Room
-              li
-                a(href='/room/public') Public Rooms
-              li
+        .nav-collapse.collapse
+          ul.nav
+            li
+              a(href="/room/#{roomId}") Room
+            li
+              a(href='/room/public') Public Rooms
+            li
 
-              li.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown')
-                  | Contact
-                  b.caret
-                ul.dropdown-menu
-                  li
-                    a(href='http://github.com/timnew') Github
-                  li
-                    a(href='https://twitter.com/timnew') Twitter
-                  li
-                    a(href='mailto:timnew.wti@gmail.com') Email
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown')
+                | Contact
+                b.caret
+              ul.dropdown-menu
+                li
+                  a(href='http://github.com/timnew') Github
+                li
+                  a(href='https://twitter.com/timnew') Twitter
+                li
+                  a(href='mailto:timnew.wti@gmail.com') Email
 
+block page-content
   .container.marketing
     ul
       li
@@ -46,13 +45,6 @@ block page
       li
         != clientCount
         | Clients
-
-    footer
-      p
-        | © 2013 TimNew ·
-        a(href='http://github.com/timnew') Github
-        |  ·
-        a(href='http://twitter.com/timnew') Twitter
 
 block body-scripts
   != assets.js('room')
