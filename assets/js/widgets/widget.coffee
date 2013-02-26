@@ -4,7 +4,7 @@ class @Widget
   constructor: (@element) ->
     @element.data('widget', this)
 
-  buildDom: ->
+  bindDom: ->
   enhancePage: ->
   initialize: ->
 
@@ -90,7 +90,7 @@ WidgetClassMethods =
         console.error "ERROR: Unknown widget #{widgetName}", $this
 
     for widget in widgets
-      widget.buildDom()
+      widget.bindDom()
 
     for widget in widgets
       widget.enhancePage()
