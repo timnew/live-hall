@@ -2,6 +2,7 @@ extends page
 
 block stylesheets
   != assets.css('room')
+  != assets.css('sprites')
 
 block navbar
   .container
@@ -34,17 +35,45 @@ block navbar
                   a(href='mailto:timnew.wti@gmail.com') Email
 
 block page-content
-  .container
+  .container(data-widget="RoomPage")
     .jumbotron
       h1 Room Name
       p.lead
-        | Room Description
+        = 'Room Description'
+      p(data-widget="ClientCountWidget")
+        = clientCount
+        |  users in the room
 
+      #sharing.collapse
+        .input-prepend.input-append
+          span.add-on
+            i.icon-ex-link
+          span.uneditable-input.input-xlarge
+            = viewUrl
+          button.btn.btn-primary
+            i.icon-ex-copy-white
+        div
+          .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=viewUrl)
+
+      p(style="margin-top:30px;")
+        a.btn.btn-primary.btn-xlarge(href=viewUrl, target='_blank', style="margin: 5px;") Enter Now
+
+      #presenter.collapse
+        p
+          a.btn.btn-primary.btn-xlarge(href=controlUrl, target='_blank') Enter as Presenter
+        .input-prepend.input-append
+          span.add-on
+            i.icon-ex-link
+          span.uneditable-input.input-xlarge
+            = controlUrl
+          button.btn.btn-primary
+            i.icon-ex-copy-white
+        div
+          .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=controlUrl)
       p
-        a.btn.btn-primary.btn-large(href=viewUrl, target='_blank') Join...
-
-
-
+        button.btn.btn-link(data-toggle="collapse", data-target="#sharing") Sharing
+        |
+        button.btn.btn-link(data-toggle="collapse", data-target="#presenter") I'm Presenter
 
 block body-scripts
   != assets.js('room')

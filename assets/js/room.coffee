@@ -1,10 +1,5 @@
-# = require_tree ./qrcode
+#= require ./widgets/QRCodeWidget
 
-$ ->
-  $('[data-qrcode]').each ->
-    $this = $(this)
-    $this.qrcode
-      text: $this.data('qrcode')
-      width: 128
-      height: 128
+#= require ./widgets/widget
 
+class @RoomPage extends Widget
