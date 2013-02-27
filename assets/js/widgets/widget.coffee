@@ -23,14 +23,14 @@ class @Widget
   findParentWidget: (selector) ->
     @findWidget('parents', selector)
 
-  findSubWidgetsByName: (widgetName) ->
-    @findWidgets('find', "[data-widget='#{widgetName}']")
+  findSubWidgetsByType: (widgetType) ->
+    @findWidgets('find', "[data-widget='#{widgetType}']")
 
-  findSubWidgetByName: (widgetName) ->
-    @findWidget('find', "[data-widget='#{widgetName}']")
+  findSubWidgetByType: (widgetType) ->
+    @findWidget('find', "[data-widget='#{widgetType}']")
 
-  findParentWidgetByName: (widgetName) ->
-    @findWidget('parents', "[data-widget='#{widgetName}']")
+  findParentWidgetByType: (widgetType) ->
+    @findWidget('parents', "[data-widget='#{widgetType}']")
 
 ContainerMethods =
   widgets:
@@ -72,22 +72,22 @@ WidgetClassMethods =
 
     scope.find('[data-widget]').each ->
       $this = $(this)
-      widgetName = $this.data('widget')
+      widgetType = $this.data('widget')
 
-      unless widgetName?
+      unless widgetType?
         console.error "ERROR: Widget name is empty", $this
         return
 
-      unless widgetName.constructor is String
+      unless widgetType.constructor is String
         console.warn 'WARNING: Widget is initialized', $this
         return
 
-      widgetConstructor = Widget.find(widgetName)
+      widgetConstructor = Widget.find(widgetType)
 
       if widgetConstructor
         widgets.push new widgetConstructor($this)
       else
-        console.error "ERROR: Unknown widget #{widgetName}", $this
+        console.error "ERROR: Unknown widget #{widgetType}", $this
 
     for widget in widgets
       widget.bindDom()
