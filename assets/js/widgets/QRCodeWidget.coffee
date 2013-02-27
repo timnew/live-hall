@@ -29,6 +29,8 @@ class QRCodeWidget extends Widget
     params = $.extend {}, @options,
       text: @data
 
+    @element.html('') # Remove last one
+
     @element.qrcode params
 
 Widget.register QRCodeWidget, 'QRCode'
