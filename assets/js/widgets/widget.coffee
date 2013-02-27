@@ -32,6 +32,13 @@ class @Widget
   findParentWidgetByType: (widgetType) ->
     @findWidget('parents', "[data-widget='#{widgetType}']")
 
+  bindActionHandlers: (selector="[data-action-handler]") ->
+    @element.find(selector).on 'click', (e) =>
+      handlerName = $(e.currentTarget).data('actionHandler')
+      return console.warn("Action handler \"#{handlerName}\" doesn't exist in widget \"#{this.constructor.name}\"") unless handlerName?
+      e.stopPropagation()
+      this[handlerName]()
+
 ContainerMethods =
   widgets:
     {}
