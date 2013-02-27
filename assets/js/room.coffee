@@ -11,15 +11,17 @@ class SharingBlock extends Widget
 
   enhancePage: ->
 #    @bindActionHandlers()
-    @element.on 'show', @shortenUrl
     @zeroClipboard = new ZeroClipboard $("#copy-url"),
       hoverClass: "btn-primary:hover"
       activeClass: 'active'
 
-#  copyUrl: =>
-#    zeroClipboard.setText @urlBox.val()
+  initialize: ->
+    @shortenUrl();
 
-  shortenUrl: =>
+#  copyUrl: =>
+#    zeroClipboard.copyText @urlBox.val()
+
+  shortenUrl: ->
     return if @urlBox.data('shorten')
 
     postBody =
