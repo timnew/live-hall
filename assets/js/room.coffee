@@ -1,4 +1,5 @@
 #= require ./widgets/QRCodeWidget
+#= require ./widgets/SideShowWidget
 
 #= require ./widgets/widget
 

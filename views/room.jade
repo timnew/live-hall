@@ -3,6 +3,7 @@ extends page
 block stylesheets
   != assets.css('room')
   != assets.css('sprites')
+  != assets.css('bootstrap-extension')
 
 block navbar
   .container
@@ -40,7 +41,7 @@ block page-content
       h1 Room Name
       p.lead
         = 'Room Description'
-      p(data-widget="ClientCountWidget")
+      p
         = clientCount
         |  users in the room
 
@@ -62,6 +63,16 @@ block page-content
         button.btn.btn-link(data-toggle="collapse", data-target="#sharing") Sharing
         |
         button.btn.btn-link I'm the Presenter
+
+  .sideshow.hide(data-widget="SideShow")
+    .sideshow-header
+       button.close(data-dismiss="sideshow") &times;
+       h3 Side Show
+    .sideshow-body
+      p
+        | Lorem Ipsum
+    .sideshow-footer
+      button.btn(data-action="hide") Back
 
 block body-scripts
   script(src="/zeroClipboard/ZeroClipboard.min.js")
