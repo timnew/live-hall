@@ -62,6 +62,20 @@ ContainerMethods =
 
     widget.find(name, false)
 
+WidgetLocateMethods =
+  findWidget: (selector) ->
+    $(selector).data('widget')
+
+  findWidgets: (selector) ->
+    $(item).data('widget') for item in $(selector)
+
+  findWidgetByType: (widgetType) ->
+    $("[data-widget='#{widgetType}']").data('widget')
+
+  findWidgetsByType: (widgetType) ->
+    $(item).data('widget') for item in $("[data-widget='#{widgetType}']")
+
+
 WidgetClassMethods =
   loadOnReady: ->
     $ ->
@@ -108,6 +122,6 @@ WidgetClassMethods =
   enableContainer: (widget) ->
     $.extend widget, ContainerMethods
 
-$.extend Widget, ContainerMethods, WidgetClassMethods
+$.extend Widget, ContainerMethods, WidgetClassMethods, WidgetLocateMethods
 
 Widget.loadOnReady()
