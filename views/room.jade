@@ -44,13 +44,13 @@ block page-content
         = clientCount
         |  users in the room
 
-      #sharing.collapse
+      #sharing.collapse(data-widget="SharingBlock")
         .input-prepend.input-append
           span.add-on
             i.icon-ex-link
-          span.uneditable-input.input-xlarge
-            = viewUrl
-          button.btn.btn-primary
+          input#urlbox.input-medium(type="text", readonly, value=viewUrl)
+
+          button.btn.btn-primary#copy-url(data-clipboard-target="urlbox")
             i.icon-ex-copy-white
         div
           .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=viewUrl)
@@ -58,22 +58,11 @@ block page-content
       p(style="margin-top:30px;")
         a.btn.btn-primary.btn-xlarge(href=viewUrl, target='_blank', style="margin: 5px;") Enter Now
 
-      #presenter.collapse
-        p
-          a.btn.btn-primary.btn-xlarge(href=controlUrl, target='_blank') Enter as Presenter
-        .input-prepend.input-append
-          span.add-on
-            i.icon-ex-link
-          span.uneditable-input.input-xlarge
-            = controlUrl
-          button.btn.btn-primary
-            i.icon-ex-copy-white
-        div
-          .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=controlUrl)
       p
         button.btn.btn-link(data-toggle="collapse", data-target="#sharing") Sharing
         |
-        button.btn.btn-link(data-toggle="collapse", data-target="#presenter") I'm Presenter
+        button.btn.btn-link I'm the Presenter
 
 block body-scripts
+  script(src="/zeroClipboard/ZeroClipboard.min.js")
   != assets.js('room')
