@@ -1,0 +1,14 @@
+@import "./sideshow";
+
+@loadingIndicatorWidth: 100px;
+
+.sideshow {
+  .loading-indicator {
+    background-image: url(/bootstrap-extension/loading.gif);
+    position: absolute;
+    top: 50%;
+    left: @sideshowWidth / 2 - @loadingIndicatorWidth /2;
+    width: @loadingIndicatorWidth;
+    height: @loadingIndicatorWidth;
+  }
+}

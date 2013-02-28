@@ -1,6 +1,8 @@
 @import "./variables";
 @import "./mixins";
 
+@sideshowWidth: 930px;
+
 // Background
 .sideshow-backdrop {
   position: fixed;
@@ -25,7 +27,7 @@
   right: 0;
   bottom: 0;
   z-index: @zindexModal;
-  width: 930px;
+  width: @sideshowWidth;
   height: 100%;
   margin: 0;
   background-color: @white;
