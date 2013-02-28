@@ -64,7 +64,7 @@ block page-content
         |
         button.btn.btn-link(data-action-handler="openPresenterView") I'm the Presenter
 
-  .sideshow#presenter-view.hide(data-widget="SideView")
+  .sideshow.hide(data-widget="SideView")
     .sideview(data-sideview="loading")
       .sideshow-header
          button.close(data-dismiss="sideshow") &times;
@@ -74,7 +74,7 @@ block page-content
       .sideshow-footer
         button.btn(data-dismiss="sideshow") Cancel
 
-    .sideview.hide(data-sideview="presenter-view",href="/room/#{roomId}/presenterView")
+    .sideview.hide(data-sideview="presenter-view", href="/room/#{roomId}/presenterView")
 
 
 block body-scripts

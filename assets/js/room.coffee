@@ -5,13 +5,13 @@
 
 class @RoomPage extends Widget
   bindDom: ->
-    @presenterView = Widget.findWidget('#presenter-view')
+    @sideView = Widget.findWidgetByType('SideView')
 
   enhancePage: ->
     @bindActionHandlers()
 
-  openPresenterView: =>
-    @presenterView.show().updateView('presenter-view')
+  openPresenterView: ->
+    @sideView.show().updateView('presenter-view')
 
 class SharingBlock extends Widget
   bindDom: ->
