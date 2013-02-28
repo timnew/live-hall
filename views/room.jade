@@ -62,17 +62,20 @@ block page-content
       p
         button.btn.btn-link(data-toggle="collapse", data-target="#sharing") Sharing
         |
-        button.btn.btn-link I'm the Presenter
+        button.btn.btn-link(data-action-handler="openPresenterView") I'm the Presenter
 
-  .sideshow.hide(data-widget="SideShow")
-    .sideshow-header
-       button.close(data-dismiss="sideshow") &times;
-       h3 Side Show
-    .sideshow-body
-      p
-        | Lorem Ipsum
-    .sideshow-footer
-      button.btn(data-action="hide") Back
+  .sideshow#presenter-view.hide(data-widget="SideView", data-view-url="/room/#{roomId}/presenterView")
+    .sideview(data-sideview="loading")
+      .sideshow-header
+         button.close(data-dismiss="sideshow") &times;
+         h3 Loading
+      .sideshow-body
+        .loading-indicator
+      .sideshow-footer
+        button.btn(data-dismiss="sideshow") Cancel
+
+    .sideview.hide(data-sideview="content")
+
 
 block body-scripts
   script(src="/zeroClipboard/ZeroClipboard.min.js")

@@ -19,3 +19,8 @@ exports.create = (req, res) ->
 
 exports.public = (req, res) ->
   res.send 200
+
+exports.presenterView = (req, res) ->
+  r = ->
+    res.render 'presenterView'
+  setTimeout r, 1500

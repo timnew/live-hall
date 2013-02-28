@@ -1,9 +1,17 @@
 #= require ./widgets/QRCodeWidget
-#= require ./widgets/SideShowWidget
+#= require ./widgets/SideViewWidget
 
 #= require ./widgets/widget
 
 class @RoomPage extends Widget
+  bindDom: ->
+    @presenterView = Widget.findWidget('#presenter-view')
+
+  enhancePage: ->
+    @bindActionHandlers()
+
+  openPresenterView: =>
+    @presenterView.show()
 
 class SharingBlock extends Widget
   bindDom: ->
@@ -11,16 +19,12 @@ class SharingBlock extends Widget
     @qrCodeWidget = @findSubWidgetByType('QRCode')
 
   enhancePage: ->
-#    @bindActionHandlers()
     @zeroClipboard = new ZeroClipboard $("#copy-url"),
       hoverClass: "btn-primary:hover"
       activeClass: 'active'
 
   initialize: ->
     @shortenUrl();
-
-#  copyUrl: =>
-#    zeroClipboard.copyText @urlBox.val()
 
   shortenUrl: ->
     return if @urlBox.data('shorten')
@@ -33,6 +37,5 @@ class SharingBlock extends Widget
          @urlBox.val(data.id)
          @qrCodeWidget.update(data.id)
          @urlBox.data('shorten', true)
-
 
 RoomPage.register SharingBlock, 'SharingBlock'
