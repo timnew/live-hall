@@ -11,7 +11,7 @@ class @RoomPage extends Widget
     @bindActionHandlers()
 
   openPresenterView: =>
-    @presenterView.show()
+    @presenterView.show().updateView('presenter-view')
 
 class SharingBlock extends Widget
   bindDom: ->
