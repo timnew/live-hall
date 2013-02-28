@@ -6,27 +6,48 @@ class SideView extends Widget.widgets.SideShow
     @views = {}
     @views[$(view).data('sideview')] = $(view) for view in @element.find('[data-sideview]')
 
-  enhancePage: ->
-    super()
-    @element.on 'show', =>
-      @loadView()
+  ensureViewExists: (viewName, viewTemplate) ->
+    view = @views[viewName]
 
-  loadView: (url) ->
-    url ?= @element.data('viewUrl')
-    @activeView('loading')
+    unless view?
+      viewTemplate = "<div class=\"sideview\" data-sideview=\"#{viewName}\">" unless viewTemplate?
+      console.log "Create Side View #{viewname}..."
+      view = @views[viewName] = $(viewTemplate).appendTo(@element)
 
-    console.log "Loading from #{url}"
+    view
+
+  updateView: (viewName) ->
+    view = @views[viewName]
+    return console.error "Side View #{viewName} doesn't exists." unless view?
+
+    url = view.attr('href')
+    return console.error "Side View #{viewName} doesn't have href attribute." unless url?
+
+    @updateViewFromUrl(url, viewName)
+
+  updateViewFromUrl: (url, viewName) ->
+    @activeLoadingView();
+
+    console.log "Loading Side View from #{url}..."
     $.get url, (viewHtml) =>
-      @updateView viewHtml
+      @updateViewFromHtml viewHtml, viewName
 
-  updateView: (viewHtml, viewName) ->
+  updateViewFromHtml: (viewHtml, viewName) ->
     $view = $(viewHtml)
-    viewName ?= $view.data('sideview') ? 'content'
+
+    viewName ?= $view.data('sideview') ? 'content' # Read viewName from the html if viewName is not provided, and fallback to "content"
+
+    console.log "Updating Side View #{viewName}..."
+    @ensureViewExists(viewName)
     @views[viewName].html('').append($view)
+
     @activeView(viewName)
 
-  activeView: (name = 'loading') ->
-    console.log "Active View #{name}"
+  activeLoadingView: ->
+    @activeView('loading')
+
+  activeView: (name) ->
+    console.log "Active Side View #{name}..."
     view.hide() for viewName, view of @views if viewName != name
     @views[name].show()
 
@@ -34,6 +55,7 @@ Widget.register SideView, "SideView"
 
 ###
 .sideshow.hide(data-widget="SideShow")
-  .sideview(data-sideview="loading").loading-indicator
+  .sideview(data-sideview="loading")
+    .loading-indicator
   .sideview(data-sideview="content")
 ###

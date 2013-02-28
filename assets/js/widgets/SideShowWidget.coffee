@@ -8,8 +8,7 @@ class SideShow extends Widget
 
   enhancePage: ->
     $(document).keyup @escapePressed
-    @element.on 'click', '[data-dismiss="sideshow"]', =>
-      @hide()
+    @element.on 'click', '[data-dismiss="sideshow"]', @hide
 
   isOpen: ->
     @element.is(':visible')
@@ -21,8 +20,8 @@ class SideShow extends Widget
         e.stopPropagation()
         @hide()
 
-  show: ->
-    return if @isOpen()
+  show: =>
+    return this if @isOpen()
 
     @element.trigger('show')
 
@@ -30,8 +29,10 @@ class SideShow extends Widget
     @element.show 'slide', @transitionOptions, @transitionOptions.duration, =>
       @element.trigger('shown')
 
-  hide: ->
-    return unless @isOpen()
+    this
+
+  hide: =>
+    return this unless @isOpen()
 
     @element.trigger('hide')
 
@@ -42,5 +43,7 @@ class SideShow extends Widget
 
     @element.hide 'slide', @transitionOptions, @transitionOptions.duration, =>
       @element.trigger('hidden')
+
+    this
 
 Widget.register SideShow, 'SideShow'
