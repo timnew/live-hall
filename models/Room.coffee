@@ -29,9 +29,8 @@ class Room extends EventEmitter
 
 rooms = Room.rooms = {}
 
-Room.create = ->
-  roomId = Date.now().toString()
-  rooms[roomId] ?= new Room(roomId)
+Room.newRoomId = ->
+  Date.now().toString()
 
 Room.get = (roomId) ->
   rooms[roomId] ?= new Room(roomId)

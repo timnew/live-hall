@@ -1,8 +1,8 @@
 exports = module.exports = (app) ->
   app.get '/', Routes.home.index
 
-  app.get '/room/create', Routes.room.create
-  app.post '/room/create', Routes.room.create.post
+  app.get '/room/create', Routes.room.create.view
+  app.post '/room/create', Routes.room.create
   app.get '/room/public', Routes.room.public
   app.get '/room/:roomId/presenterView', Routes.room.presenterView
   app.get '/room/:roomId', Routes.room.get

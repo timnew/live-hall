@@ -11,16 +11,19 @@ exports.get = (req, res) ->
     controlUrl: buildUrl("/view/#{room.id}?control", req)
     clientCount: room.clientCount
 
-  res.render 'room', viewModel
+  res.render 'room/room', viewModel
 
 exports.create = (req, res) ->
-  room = Models.Room.create()
-  res.redirect "/room/#{room.id}"
+  roomId = Models.Room.newRoomId()
+  res.redirect "/room/#{roomId}"
+
+exports.create.view = (req, res) ->
+  res.render "room/create"
+
 
 exports.public = (req, res) ->
   res.send 200
 
 exports.presenterView = (req, res) ->
-  r = ->
-    res.render 'presenterView'
-  setTimeout r, 1500
+  res.render 'room/presenterView'
+

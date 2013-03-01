@@ -1,0 +1,28 @@
+div(data-widget="CreateRoomPage")
+  .sideshow-header
+     button.close(data-dismiss="sideshow") &times;
+     h3 Create Room
+  .sideshow-body
+    form.form-horizontal
+      .control-group
+        label.control-label(for='roomName') Room Name
+        .controls
+          input#roomName.input-xlarge(name="roomName", type='text', placeholder='Room Name')
+
+      .control-group
+        label.control-label(for='roomDescription') Room Description
+        .controls
+          input#inputPassword.input-xlarge(name="roomDescription", type='text', placeholder='Room Description')
+
+      //
+        .control-group
+          label.control-label(for='roomSecret') Presenter View Secret
+          .controls
+            #roomSecret.img-rounded.img-polaroid.input-xlarge(data-widget="QRCode", data-qrcode="xxxxxx")
+            span.help-block Capture this QRCode with Google Authenticator
+
+  .sideshow-footer
+    button.btn.btn-primary(data-action-handler="createRoom") Create
+    button.btn(data-dismiss="sideshow") Cancel
+
+  != assets.js('pages/createRoom')
