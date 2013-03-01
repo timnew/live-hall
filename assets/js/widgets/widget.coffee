@@ -77,11 +77,11 @@ WidgetLocateMethods =
 
 
 WidgetClassMethods =
-  loadOnReady: ->
+  activateOnReady: ->
     $ ->
-      Widget.buildWidgets()
+      Widget.activateWidgets()
 
-  buildWidgets: (scope = null) ->
+  activateWidgets: (scope = null) ->
     unless scope?
       scope = $('body')
     else if scope instanceof String
@@ -124,4 +124,4 @@ WidgetClassMethods =
 
 $.extend Widget, ContainerMethods, WidgetClassMethods, WidgetLocateMethods
 
-Widget.loadOnReady()
+Widget.activateOnReady()
