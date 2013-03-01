@@ -41,6 +41,9 @@ class SideView extends Widget.widgets.SideShow
     @ensureViewExists(viewName)
     @views[viewName].html('').append($view)
 
+    console.log "Activating Widgets for Side View..."
+    Widget.activateWidgets(@views[viewName]) # Active widget if exists
+
     @activeView(viewName)
 
   activeLoadingView: ->
