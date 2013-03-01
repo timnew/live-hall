@@ -1,7 +1,7 @@
-#= require ./widgets/QRCodeWidget
-#= require ./widgets/SideViewWidget
+#= require ../widgets/QRCodeWidget
+#= require ../widgets/SideViewWidget
 
-#= require ./widgets/widget
+#= require ../widgets/widget
 
 class @RoomPage extends Widget
   bindDom: ->
