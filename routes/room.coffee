@@ -5,6 +5,7 @@ buildUrl = (relativeUrl, req) ->
 
 exports.get = (req, res) ->
   room = Models.Room.get(req.params.roomId)
+
   viewModel =
     roomId: room.id
     viewUrl: buildUrl("/view/#{room.id}", req)
@@ -14,11 +15,13 @@ exports.get = (req, res) ->
   res.render 'room/room', viewModel
 
 exports.create = (req, res) ->
-  roomId = Models.Room.newRoomId()
-  res.redirect "/room/#{roomId}"
+  room = new Models.Room(req.body)
+
+  res.redirect "/room/#{room.id}"
 
 exports.create.view = (req, res) ->
-  res.render "room/create"
+  res.render "room/create",
+    roomId: Models.Room.newRoomId()
 
 
 exports.public = (req, res) ->

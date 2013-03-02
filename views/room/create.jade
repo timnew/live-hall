@@ -3,7 +3,7 @@ div(data-widget="CreateRoomPage")
      button.close(data-dismiss="sideshow") &times;
      h3 Create Room
   .sideshow-body
-    form.form-horizontal(data-widget="@CreateRoomForm")
+    form.form-horizontal(data-widget="@CreateRoomForm", method="POST", action="/room/create")
       .control-group(data-widget="@Input")
         label.control-label(for='roomName') Room Name
         .controls
@@ -20,6 +20,8 @@ div(data-widget="CreateRoomPage")
           .controls
             #roomSecret.img-rounded.img-polaroid.input-xlarge(data-widget="QRCode", data-qrcode="xxxxxx")
             span.help-block Capture this QRCode with Google Authenticator
+
+      input(type='hidden', name='id', value=roomId)
 
   .sideshow-footer
     button.btn.btn-primary(data-action-handler="createRoom") Create
