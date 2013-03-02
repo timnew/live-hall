@@ -38,6 +38,13 @@ class @Widget
   findParentWidgetsByType: (widgetType) ->
     @findWidgets('parents', "[data-widget='#{widgetType}']")
 
+  bindWidgetParts: (context = this, filter = '[data-widget-part]', attrName = 'data-widget-part') ->
+    for part in @element.find(filter)
+      $part = $(part)
+      if $part.parent('[data-widget]') == @element
+        name = $part.attr(attrName)
+        context[name] = $part
+
   bindActionHandlers: (selector="[data-action-handler]", context = this) ->
     @element.find(selector).on 'click', (e) =>
       handlerName = $(e.currentTarget).data('actionHandler')
