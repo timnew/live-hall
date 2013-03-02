@@ -46,27 +46,52 @@ class @Widget
       context[handlerName].call(context, e)
 
 ContainerMethods =
-  widgets:
-    {}
+  register: (widget, widgetType = null) ->
+    widgetType = widget.prototype.widgetType ? widget.name unless widgetType
+    @namespace[widgetType] = widget
 
-  register: (widget, name = null) ->
-    name = widget.name unless name?
-    Widget.widgets[name] = widget
+  find: (widgetType, includeGlobal = true) ->
+    widgetTypeNames = widgetType.split('.') if typeof(widgetType) is 'string'
 
-  find: (name, includeGlobal = true) ->
-    name = name.split('.') if name.constructor is String
-
-    currentName = name.shift()
+    currentName = widgetTypeNames.shift()
     if includeGlobal
-      widget = this.widgets[currentName] ? global[currentName]
+      widget = @namespace[currentName] ? global[currentName]
     else
-      widget = this.widgets[currentName]
+      widget = @namespace[currentName]
 
-    return widget if name.length == 0
+    return widget if widgetTypeNames.length == 0
 
     return null unless widget?
 
-    widget.find(name, false)
+    widget.find(widgetType, false)
+
+  createNamespace: (name) ->
+    @namespace = []
+    @namespace.name = name
+    this
+
+  findInNamespaces: (name, $dom) ->
+    if name[0] == '@'
+      isRelative = true
+      name = name[1..]
+    else
+      isRelative = false
+
+    result = Widget.find(name)
+    return result if result?
+
+    return null unless isRelative
+
+    lastNamespace = Widget.namespace.name
+
+    for parentDom in $dom.parents('[data-widget]')
+      containerWidget = $(parentDom).data('widget').constructor
+
+      if lastNamespace == containerWidget.namespace.name
+        continue
+      else
+        result = containerWidget.find(name, false)
+        return result if result?
 
 WidgetLocateMethods =
   findWidget: (selector = '[data-widget]') ->
@@ -104,11 +129,11 @@ WidgetClassMethods =
         console.error "ERROR: Widget name is empty", $this
         return
 
-      unless widgetType.constructor is String
+      unless typeof(widgetType) is 'string'
         console.warn 'WARNING: Widget is initialized', $this
         return
 
-      widgetConstructor = Widget.find(widgetType)
+      widgetConstructor = Widget.findInNamespaces(widgetType, $this)
 
       if widgetConstructor
         widgets.push new widgetConstructor($this)
@@ -124,9 +149,8 @@ WidgetClassMethods =
     for widget in widgets
       widget.initialize()
 
-  enableContainer: (widget) ->
-    $.extend widget, ContainerMethods
-
 $.extend Widget, ContainerMethods, WidgetClassMethods, WidgetLocateMethods
 
-Widget.activateOnReady()
+Widget
+  .createNamespace('')
+  .activateOnReady()
