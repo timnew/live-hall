@@ -14,14 +14,17 @@ class @Widget
   findWidget: (finder, selector) ->
     @element[finder].call(@element, selector).data('widget')
 
-  findSubWidgets: (selector) ->
+  findSubWidgets: (selector = '[data-widget]') ->
     @findWidgets('find', selector)
 
-  findSubWidget: (selector) ->
+  findSubWidget: (selector = '[data-widget]') ->
     @findWidget('find', selector)
 
-  findParentWidget: (selector) ->
+  findParentWidget: (selector = '[data-widget]') ->
     @findWidget('parents', selector)
+
+  findParentWidgets: (selector = '[data-widget]') ->
+    @findWidgets('parents', selector)
 
   findSubWidgetsByType: (widgetType) ->
     @findWidgets('find', "[data-widget='#{widgetType}']")
@@ -31,6 +34,9 @@ class @Widget
 
   findParentWidgetByType: (widgetType) ->
     @findWidget('parents', "[data-widget='#{widgetType}']")
+
+  findParentWidgetsByType: (widgetType) ->
+    @findWidgets('parents', "[data-widget='#{widgetType}']")
 
   bindActionHandlers: (selector="[data-action-handler]", context = this) ->
     @element.find(selector).on 'click', (e) =>
@@ -63,10 +69,10 @@ ContainerMethods =
     widget.find(name, false)
 
 WidgetLocateMethods =
-  findWidget: (selector) ->
+  findWidget: (selector = '[data-widget]') ->
     $(selector).data('widget')
 
-  findWidgets: (selector) ->
+  findWidgets: (selector = '[data-widget]') ->
     $(item).data('widget') for item in $(selector)
 
   findWidgetByType: (widgetType) ->
@@ -74,7 +80,6 @@ WidgetLocateMethods =
 
   findWidgetsByType: (widgetType) ->
     $(item).data('widget') for item in $("[data-widget='#{widgetType}']")
-
 
 WidgetClassMethods =
   activateOnReady: ->
