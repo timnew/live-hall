@@ -1,5 +1,7 @@
 global = this
 
+return if @Widget?
+
 class @Widget
   constructor: (@element) ->
     @element.data('widget', this)
