@@ -38,9 +38,10 @@ block navbar
 block page-content
   .container(data-widget="RoomPage")
     .jumbotron
-      h1 Room Name
+      h1
+        = roomName
       p.lead
-        = 'Room Description'
+        = roomDescription
       p
         = clientCount
         |  users in the room

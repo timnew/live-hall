@@ -6,8 +6,14 @@ buildUrl = (relativeUrl, req) ->
 exports.get = (req, res) ->
   room = Models.Room.get(req.params.roomId)
 
+  res.send(404) unless room?
+
+  console.log room
+
   viewModel =
     roomId: room.id
+    roomName: room.name
+    roomDescription: room.description
     viewUrl: buildUrl("/view/#{room.id}", req)
     controlUrl: buildUrl("/view/#{room.id}?control", req)
     clientCount: room.clientCount

@@ -7,8 +7,10 @@ class Room extends EventEmitter
 
     data = _.pick data, 'id', 'name', 'description'
     _.extend this, data
+    console.log "data", data
 
     Room.rooms[@id] = this
+    console.log "created", this
 
   hookClient: (req, res) ->
     req.socket.setTimeout(Infinity)
@@ -38,6 +40,6 @@ Room.newRoomId = ->
   Date.now().toString()
 
 Room.get = (roomId) ->
-  Room.rooms[roomId] ?= new Room(id: roomId, name: "Room #{roomId}", description: '')
+  Room.rooms[roomId]
 
 exports = module.exports = Room
