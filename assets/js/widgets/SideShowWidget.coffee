@@ -1,6 +1,6 @@
 #= require ./widget
 
-class SideShow extends Widget
+class @SideShow extends Widget
   transitionOptions:
     direction: 'right'
     easing: 'easeOutCirc'
@@ -46,4 +46,3 @@ class SideShow extends Widget
 
     this
 
-Widget.register SideShow, 'SideShow'

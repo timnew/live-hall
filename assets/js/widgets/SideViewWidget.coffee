@@ -1,6 +1,6 @@
 #= require ./SideShowWidget
 
-class SideView extends Widget.widgets.SideShow
+class @SideView extends SideShow
   bindDom: ->
     super()
     @views = {}

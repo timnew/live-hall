@@ -1,4 +1,4 @@
-# = require ./widget
+# = require ../widgets/widget
 # = require_tree ../qrcode
 
 class QRCodeWidget extends Widget
