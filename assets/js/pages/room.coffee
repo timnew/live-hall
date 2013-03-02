@@ -37,4 +37,6 @@ class SharingBlock extends Widget
          @qrCodeWidget.update(data.id)
          @urlBox.data('shorten', true)
 
-RoomPage.register SharingBlock, 'SharingBlock'
+RoomPage
+  .createNamespace()
+  .register SharingBlock, 'SharingBlock'

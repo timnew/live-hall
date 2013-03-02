@@ -3,13 +3,13 @@ div(data-widget="CreateRoomPage")
      button.close(data-dismiss="sideshow") &times;
      h3 Create Room
   .sideshow-body
-    form.form-horizontal
-      .control-group
+    form.form-horizontal(data-widget="@CreateRoomForm")
+      .control-group(data-widget="@Input")
         label.control-label(for='roomName') Room Name
         .controls
           input#roomName.input-xlarge(name="roomName", type='text', placeholder='Room Name')
 
-      .control-group
+      .control-group(data-widget="@Input")
         label.control-label(for='roomDescription') Room Description
         .controls
           input#inputPassword.input-xlarge(name="roomDescription", type='text', placeholder='Room Description')
