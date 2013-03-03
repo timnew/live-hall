@@ -29,10 +29,11 @@ exports.create.view = (req, res) ->
   res.render "room/create",
     roomId: Models.Room.newRoomId()
 
-
-exports.public = (req, res) ->
-  res.send 200
-
 exports.presenterView = (req, res) ->
   res.render 'room/presenterView'
+
+exports.public = (req, res) ->
+  res.render 'room/list',
+    title: 'Public Rooms'
+    rooms: Models.Room.rooms
 
