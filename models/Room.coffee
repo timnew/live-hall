@@ -43,3 +43,5 @@ Room.get = (roomId) ->
   Room.rooms[roomId]
 
 exports = module.exports = Room
+
+new Room(id:1, name:'room 1', description:'description')
