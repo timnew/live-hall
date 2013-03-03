@@ -46,7 +46,7 @@ class @SideView extends SideShow
   updateViewFromHtml: (viewHtml, viewName) ->
     $view = $(viewHtml)
 
-    viewName ?= $view.data('sideview') ? 'content' # Read viewName from the html if viewName is not provided, and fallback to "content"
+    viewName = $view.data('sideview') ? viewName ? 'content'
 
     console.log "Updating Side View #{viewName}..."
     @ensureViewExists(viewName)
