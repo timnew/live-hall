@@ -4,7 +4,15 @@ exports = module.exports = (app) ->
   app.get '/room/create', Routes.room.create.view
   app.post '/room/create', Routes.room.create
   app.get '/room/public', Routes.room.public
+
   app.get '/room/:roomId/edit', Routes.room.edit.view
+  app.post '/room/:roomId/edit', Routes.room.edit
+
+  app.get '/room/:roomId/presenter', Routes.room.presenter
+
+  app.get '/room/:roomId/login', Routes.room.login.view
+  app.post '/room/:roomId/login', Routes.room.login
+
   app.get '/room/:roomId', Routes.room.get
 
 

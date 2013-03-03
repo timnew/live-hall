@@ -3,6 +3,11 @@ buildUrl = (relativeUrl, req) ->
   host = req.header('host')
   "#{protocol}://#{host}#{relativeUrl}"
 
+exports.public = (req, res) ->
+  res.render 'room/list',
+     title: 'Public Rooms'
+     rooms: Models.Room.rooms
+
 exports.get = (req, res) ->
   room = Models.Room.get(req.params.roomId)
 
@@ -29,16 +34,19 @@ exports.create.view = (req, res) ->
   res.render "room/create",
     roomId: Models.Room.newRoomId()
 
+exports.login = (req, res) ->
+  res.send(200)
+
+exports.login.view = (req, res) ->
+  res.send(200)
+
+exports.presenter = (req, res) ->
+  res.send(200)
+
 exports.edit = (req, res) ->
   res.send 200
 
 exports.edit.view = (req, res) ->
   room = Models.Room.get(req.params.roomId)
   res.render 'room/edit'
-    room: room
-
-exports.public = (req, res) ->
-  res.render 'room/list',
-    title: 'Public Rooms'
-    rooms: Models.Room.rooms
-
+             room: room
