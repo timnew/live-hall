@@ -43,9 +43,11 @@ class @Widget
   bindWidgetParts: (context = this, filter = '[data-widget-part]', attrName = 'data-widget-part') ->
     for part in @element.find(filter)
       $part = $(part)
-      if $part.parent('[data-widget]') == @element
+      if $part.parents('[data-widget]:first')[0] == @element[0] # Should test Dom element instead of jQuery object
         name = $part.attr(attrName)
         context[name] = $part
+
+    return
 
   bindActionHandlers: (selector="[data-action-handler]", context = this) ->
     @element.find(selector).on 'click', (e) =>
