@@ -15,15 +15,10 @@ exports.get = (req, res) ->
 
   console.log room
 
-  viewModel =
-    roomId: room.id
-    roomName: room.name
-    roomDescription: room.description
+  res.render 'room/room',
+    room: room
     viewUrl: buildUrl("/view/#{room.id}", req)
     controlUrl: buildUrl("/view/#{room.id}?control", req)
-    clientCount: room.clientCount
-
-  res.render 'room/room', viewModel
 
 exports.create = (req, res) ->
   room = new Models.Room(req.body)
@@ -48,5 +43,6 @@ exports.edit = (req, res) ->
 
 exports.edit.view = (req, res) ->
   room = Models.Room.get(req.params.roomId)
-  res.render 'room/edit'
-             room: room
+
+  res.render 'room/edit',
+     room: room

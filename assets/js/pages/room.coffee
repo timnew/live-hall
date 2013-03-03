@@ -4,13 +4,24 @@
 
 class @RoomPage extends Widget
   bindDom: ->
+    @parts = {}
+    @bindWidgetParts @parts
     @sideView = Widget.findWidgetByType('SideView')
 
   enhancePage: ->
+    @room = @element.data('room')
     @bindActionHandlers()
 
+  initialize: ->
+    @refresh()
+
+  refresh: ->
+    @parts.nameDom.text @room.name
+    @parts.descriptionDom.text @room.description
+    @parts.clientCountDom.text @room.clientCount
+
   openPresenterView: ->
-    @sideView.show().updateView('presenter-view')
+    @sideView.show().updateView('presenter')
 
 class SharingBlock extends Widget
   bindDom: ->
