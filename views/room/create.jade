@@ -1,4 +1,6 @@
 div(data-widget="CreateRoomPage")
+  != assets.css('qrcode')
+
   .sideshow-header
      button.close(data-dismiss="sideshow") &times;
      h3 Create Room
@@ -14,12 +16,6 @@ div(data-widget="CreateRoomPage")
         .controls
           input#inputPassword.input-xlarge(name="description", type='text', placeholder='Room Description')
 
-      //
-        .control-group
-          label.control-label(for='roomSecret') Presenter View Secret
-          .controls
-            #roomSecret.img-rounded.img-polaroid.input-xlarge(data-widget="QRCode", data-qrcode="xxxxxx")
-            span.help-block Capture this QRCode with Google Authenticator
 
       input(type='hidden', name='id', value=roomId)
 
