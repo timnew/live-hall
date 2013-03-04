@@ -7,13 +7,16 @@ express = require('express')
 app = express()
 
 app.configure ->
-  app.set 'port', process.env.PORT || configuration.port
+  app.set 'port', process.env.PORT || Configuration.port
   app.set 'views', rootPath.views()
   app.set 'view engine', 'jade'
   app.use express.favicon()
   app.use express.logger('dev')
   app.use express.bodyParser()
   app.use express.methodOverride()
+  app.use express.cookieParser()
+  app.use express.cookieSession
+    secret: Configuration.cookieSecret
   app.use app.router
 
   app.use require('connect-assets') # customize this in production and heroku environment
