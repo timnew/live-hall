@@ -1,6 +1,7 @@
 #= require ../widgets/widget
 #= require ../widgets/SideViewWidget
 #= require ./QRCodeWidget
+#= require ./RoomEditorPage
 
 class @RoomPage extends Widget
   bindDom: ->
@@ -60,11 +61,14 @@ class PresenterView extends Widget
 class EditRoomView extends Widget
   bindDom: ->
     @sideview = @findParentWidgetByType('SideView')
+    @roomInfoForm = @findSubWidgetByType('RoomEditorPage.RoomInfoForm')
 
   enhancePage: ->
     @bindActionHandlers()
 
-  update: ->
+  updateRoom: ->
+    @roomInfoForm.submit()
+
 
   cancel: ->
     @sideview.activeView('presenter')

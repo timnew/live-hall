@@ -45,7 +45,9 @@ exports.presenter = (req, res) ->
 
 
 exports.edit = (req, res) ->
-  res.send 200
+  room = Models.Room.get(req.params.roomId)
+  room.updateModel(req.body)
+  res.redirect "/room/#{req.params.roomId}"
 
 exports.edit.view = (req, res) ->
   room = Models.Room.get(req.params.roomId)

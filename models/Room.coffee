@@ -5,12 +5,15 @@ class Room extends EventEmitter
   constructor: (data) ->
     @clientCount = 0
 
-    data = _.pick data, 'id', 'name', 'description'
-    _.extend this, data
-    console.log "data", data
+    @updateModel data
 
     Room.rooms[@id] = this
     console.log "created", this
+
+  updateModel: (data)->
+    data = _.pick data, 'id', 'name', 'description'
+    _.extend this, data
+    console.log "data", data
 
   hookClient: (req, res) ->
     req.socket.setTimeout(Infinity)
