@@ -25,8 +25,7 @@ class @RoomPage extends Widget
 
 class SharingBlock extends Widget
   bindDom: ->
-    @urlBox = @element.find('#urlbox')
-    @qrCodeWidget = @findSubWidgetByType('QRCode')
+    @bindWidgetParts()
 
   enhancePage: ->
     @zeroClipboard = new ZeroClipboard $("#copy-url"),
@@ -45,9 +44,34 @@ class SharingBlock extends Widget
     $.postJson 'https://www.googleapis.com/urlshortener/v1/url', postBody,
        (data) =>
          @urlBox.val(data.id)
-         @qrCodeWidget.update(data.id)
+         @qrCode.update(data.id)
          @urlBox.data('shorten', true)
+
+class PresenterView extends Widget
+  bindDom: ->
+    @sideview = @findParentWidgetByType('SideView')
+
+  enhancePage: ->
+    @bindActionHandlers()
+
+  openEditRoomView: ->
+    @sideview.updateView('edit')
+
+class EditRoomView extends Widget
+  bindDom: ->
+    @sideview = @findParentWidgetByType('SideView')
+
+  enhancePage: ->
+    @bindActionHandlers()
+
+  update: ->
+
+  cancel: ->
+    @sideview.activeView('presenter')
+
 
 RoomPage
   .createNamespace()
-  .register SharingBlock, 'SharingBlock'
+  .register(SharingBlock, 'SharingBlock')
+  .register(PresenterView, 'PresenterView')
+  .register(EditRoomView, 'EditRoomView')

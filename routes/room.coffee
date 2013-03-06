@@ -18,7 +18,7 @@ exports.get = (req, res) ->
   res.render 'room/room',
     room: room
     viewUrl: buildUrl("/view/#{room.id}", req)
-    controlUrl: buildUrl("/view/#{room.id}?control", req)
+
 
 exports.create = (req, res) ->
   room = new Models.Room(req.body)
@@ -36,7 +36,13 @@ exports.login.view = (req, res) ->
   res.send(200)
 
 exports.presenter = (req, res) ->
-  res.send(200)
+  room =
+    id: req.params.roomId
+  res.render 'room/presenter',
+    roomId: room.id
+    controlUrl: buildUrl("/view/#{room.id}?control", req)
+    noteUrl: buildUrl("/view/#{room.id}?control&note", req)
+
 
 exports.edit = (req, res) ->
   res.send 200

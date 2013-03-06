@@ -1,8 +1,9 @@
-div
+div(data-widget="@EditRoomView")
   != assets.css('qrcode')
+
   .sideshow-header
      button.close(data-dismiss="sideshow") &times;
-     h3 Create Room
+     h3 Edit Room
   .sideshow-body
     form.form-horizontal(method="POST", action="/room/#{room.id}/update")
       .control-group
@@ -18,5 +19,5 @@ div
       input(type='hidden', name='id', value=room.id)
 
   .sideshow-footer
-    button.btn.btn-primary Update
-    button.btn(data-dismiss="sideshow") Cancel
+    button.btn.btn-primary(data-action-handler='update') Update
+    button.btn(data-action-handler='cancel') Back

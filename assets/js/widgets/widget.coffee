@@ -16,26 +16,26 @@ class @Widget
   findWidget: (finder, selector) ->
     @element[finder].call(@element, selector).data('widget')
 
+  findSubWidget: (selector = '[data-widget]:first') ->
+    @findWidget('find', selector)
+
   findSubWidgets: (selector = '[data-widget]') ->
     @findWidgets('find', selector)
 
-  findSubWidget: (selector = '[data-widget]') ->
-    @findWidget('find', selector)
-
-  findParentWidget: (selector = '[data-widget]') ->
+  findParentWidget: (selector = '[data-widget]:first') ->
     @findWidget('parents', selector)
 
   findParentWidgets: (selector = '[data-widget]') ->
     @findWidgets('parents', selector)
 
   findSubWidgetsByType: (widgetType) ->
-    @findWidgets('find', "[data-widget='#{widgetType}']")
+    @findWidgets('find', "[data-widget='#{widgetType}']:first")
 
   findSubWidgetByType: (widgetType) ->
     @findWidget('find', "[data-widget='#{widgetType}']")
 
   findParentWidgetByType: (widgetType) ->
-    @findWidget('parents', "[data-widget='#{widgetType}']")
+    @findWidget('parents', "[data-widget='#{widgetType}']:first")
 
   findParentWidgetsByType: (widgetType) ->
     @findWidgets('parents', "[data-widget='#{widgetType}']")
@@ -45,7 +45,10 @@ class @Widget
       $part = $(part)
       if $part.parents('[data-widget]:first')[0] == @element[0] # Should test Dom element instead of jQuery object
         name = $part.attr(attrName)
-        context[name] = $part
+        if $part.is('[data-widget]')
+          context[name] = $part.data('widget')
+        else
+          context[name] = $part
 
     return
 
@@ -60,9 +63,16 @@ ContainerMethods =
   register: (widget, widgetType = null) ->
     widgetType = widget.prototype.widgetType ? widget.name unless widgetType
     @namespace[widgetType] = widget
+    this
 
   find: (widgetType, includeGlobal = true) ->
-    widgetTypeNames = widgetType.split('.') if typeof(widgetType) is 'string'
+    if typeof(widgetType) is 'string'
+      widgetTypeNames = widgetType.split('.')
+    else if $.isArray(widgetType)
+      widgetTypeNames = widgetType
+    else
+      console.error "Invalid Widget Type:", widgetType
+      return null
 
     currentName = widgetTypeNames.shift()
     if includeGlobal
@@ -74,7 +84,7 @@ ContainerMethods =
 
     return null unless widget?
 
-    widget.find(widgetType, false)
+    widget.find(widgetTypeNames, false)
 
   createNamespace: (name) ->
     @namespace = []
