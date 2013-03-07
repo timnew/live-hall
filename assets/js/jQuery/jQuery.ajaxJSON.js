@@ -33,5 +33,19 @@
         postJson: createAjaxMethod('post'),
         putJson: createAjaxMethod('put')
     });
+
+    function serializeJson() {
+        var result = {};
+
+        $.each(this.serializeArray(), function(i, item){
+            result[item.name] = item.value;
+        });
+
+        return result;
+    }
+
+    $.fn.extend({
+        serializeJson: serializeJson
+    });
 })(window.jQuery);
 
