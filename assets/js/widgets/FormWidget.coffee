@@ -1,8 +1,32 @@
 #= require ./widget
+#= require ../jQuery/jQuery.ajaxJson
 
 class @FormWidget extends Widget
   serialize: ->
+    @element.serializeJson()
+
+  serializeParam: ->
     @element.serialize()
+
+  ajaxSubmit: ->
+    unless @validate()
+      return {
+        done: ->
+        fail: ->
+        always: ->
+        then: ->
+      }
+
+    method = @element.attr('method')?.toUpperCase() ? 'GET'
+    url = @element.attr('action')
+
+    switch method
+      when 'GET'
+        $.get url, @serializeParam()
+      when 'POST'
+        $.postJson url, @serialize()
+      else
+        throw "Unknown Method \"#{method}\""
 
   submit: ->
     @element.submit() if @validate()
@@ -24,6 +48,9 @@ class InputWidget extends Widget
   bindDom: ->
     @errorMessage = $('<span class="help-inline hide">').appendTo @element.find('.controls')
     @input = @element.find('input')
+
+  value: ->
+    @input.val.apply(@input, arguments)
 
   changeValidationState: (state = '', message) ->
     @element.removeClass('warning error info success')
