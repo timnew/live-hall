@@ -73,7 +73,7 @@ class EditRoomView extends Widget
     @sideview.activeView('presenter')
 
 RoomPage
-  .createNamespace()
+  .createNamespace('RoomPage')
   .register(SharingBlock, 'SharingBlock')
   .register(PresenterView, 'PresenterView')
   .register(EditRoomView, 'EditRoomView')

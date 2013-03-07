@@ -17,5 +17,5 @@ class RoomInfoForm extends FormWidget
     super(@inputs)
 
 RoomEditorPage
-  .createNamespace()
+  .createNamespace('RoomEditorPage')
   .register(RoomInfoForm, 'RoomInfoForm')
