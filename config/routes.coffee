@@ -10,8 +10,10 @@ exports = module.exports = (app) ->
 
   app.get '/room/:roomId/presenter', Routes.room.presenter
 
-  app.get '/room/:roomId/login', Routes.room.login.view
-  app.post '/room/:roomId/login', Routes.room.login
+  app.get '/room/:roomId/login', Routes.auth.login.sideview
+  app.post '/room/:roomId/login', Routes.auth.login
+
+  app.get '/logout', Routes.auth.logout
 
   app.get '/room/:roomId', Routes.room.get
 

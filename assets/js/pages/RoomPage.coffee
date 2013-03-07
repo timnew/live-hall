@@ -69,10 +69,8 @@ class EditRoomView extends Widget
   updateRoom: ->
     @roomInfoForm.submit()
 
-
   cancel: ->
     @sideview.activeView('presenter')
-
 
 RoomPage
   .createNamespace()

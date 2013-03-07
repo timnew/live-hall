@@ -1,0 +1,15 @@
+div(data-sideview="login", data-widget="LogInPage")
+  != assets.css('qrcode')
+
+  .sideshow-header
+    button.close(data-dismiss="sideshow") &times;
+    h3 Presenter Log In
+  .sideshow-body
+
+  .sideshow-footer
+    button.btn.btn-primary(data-action-handler="login") Simulate Log In
+    button.btn.btn-danger(data-action-handler="fail") Simulate Failed Login
+    button.btn(data-dismiss="sideshow") Cancel
+
+  != assets.js('jQuery/jQuery.ajaxJson')
+  != assets.js('pages/LogInPage')

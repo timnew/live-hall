@@ -3,6 +3,8 @@ buildUrl = (relativeUrl, req) ->
   host = req.header('host')
   "#{protocol}://#{host}#{relativeUrl}"
 
+checkAuth = Routes.auth.checkAuth
+
 exports.public = (req, res) ->
   res.render 'room/list',
      title: 'Public Rooms'
@@ -19,7 +21,6 @@ exports.get = (req, res) ->
     room: room
     viewUrl: buildUrl("/view/#{room.id}", req)
 
-
 exports.create = (req, res) ->
   room = new Models.Room(req.body)
 
@@ -29,12 +30,6 @@ exports.create.view = (req, res) ->
   res.render "room/create",
     roomId: Models.Room.newRoomId()
 
-exports.login = (req, res) ->
-  res.send(200)
-
-exports.login.view = (req, res) ->
-  res.send(200)
-
 exports.presenter = (req, res) ->
   room =
     id: req.params.roomId
@@ -43,13 +38,12 @@ exports.presenter = (req, res) ->
     controlUrl: buildUrl("/view/#{room.id}?control", req)
     noteUrl: buildUrl("/view/#{room.id}?control&note", req)
 
-
-exports.edit = (req, res) ->
+exports.edit = checkAuth (req, res) ->
   room = Models.Room.get(req.params.roomId)
   room.updateModel(req.body)
   res.redirect "/room/#{req.params.roomId}"
 
-exports.edit.view = (req, res) ->
+exports.edit.view = checkAuth (req, res) ->
   room = Models.Room.get(req.params.roomId)
 
   res.render 'room/edit',
