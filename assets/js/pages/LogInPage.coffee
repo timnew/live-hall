@@ -3,17 +3,37 @@
 
 class @LogInPage extends Widget
   bindDom: ->
-    @sideview = @findParentWidgetByType('SideView')
+    @tokenLogInForm = @findSubWidgetByType('@TokenLogInForm')
 
   enhancePage: ->
     @bindActionHandlers()
 
-  submit: (correct) ->
-    $.postJson '/room/1/login', {correct: correct}, =>
-      @sideview.updateView('edit')
-
   login: ->
-    @submit true
+    @tokenLogInForm.simulate(true)
 
   fail: ->
-    @submit false
+    @tokenLogInForm.simulate(false)
+
+class TokenLogInForm extends FormWidget
+  bindDom: ->
+    @sideview = @findParentWidgetByType('SideView')
+    @inputs = @findSubWidgetsByType('@Input')
+
+  validate: ->
+    super(@inputs)
+
+  simulate: (correct)->
+    window.i = @inputs
+    if correct
+      @inputs[0].value('correct')
+    else
+      @inputs[0].value('wrong')
+
+    @ajaxSubmit()
+      .always =>
+        @sideview.updateView('edit')
+
+
+LogInPage
+  .createNamespace('Loginpage')
+  .register(TokenLogInForm,'TokenLogInForm')
