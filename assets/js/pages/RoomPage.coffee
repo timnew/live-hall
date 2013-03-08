@@ -51,12 +51,37 @@ class SharingBlock extends Widget
 class PresenterView extends Widget
   bindDom: ->
     @sideview = @findParentWidgetByType('SideView')
+    @authButton = @element.find('[data-action-handler=signInOrSignOut]')
 
   enhancePage: ->
     @bindActionHandlers()
 
+  initialize: ->
+    @updateAuthStatus @element.data('authStatus')
+
+  updateAuthStatus: (status) ->
+    @authStatus = status
+
+    if status
+      @authButton.text('Sign Out')
+    else
+      @authButton.text('Sign In')
+
   openEditRoomView: ->
     @sideview.updateView('edit')
+
+  signInOrSignOut: ->
+    if @authStatus
+      @signOut()
+    else
+      @signIn()
+
+  signOut: ->
+    $.get '/logout', =>
+      @updateAuthStatus false
+
+  signIn: ->
+    @sideview.updateView('login')
 
 class EditRoomView extends Widget
   bindDom: ->
@@ -70,7 +95,7 @@ class EditRoomView extends Widget
     @roomInfoForm.submit()
 
   cancel: ->
-    @sideview.activeView('presenter')
+    @sideview.activateView('presenter')
 
 RoomPage
   .createNamespace('RoomPage')

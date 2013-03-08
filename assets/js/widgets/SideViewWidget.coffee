@@ -26,7 +26,7 @@ class @SideView extends SideShow
     @updateViewFromUrl(url, viewName)
 
   updateViewFromUrl: (url, viewName) ->
-    @activeLoadingView()
+    @activateLoadingView()
 
     console.log "Loading Side View from #{url}..."
     $.get url, (viewHtml) =>
@@ -37,7 +37,7 @@ class @SideView extends SideShow
       callback = viewName
       viewName = undefined
 
-    @activeLoadingView()
+    @activateLoadingView()
 
     console.log "Loading Side View from Callback..."
     callback (viewHtml, newViewName) =>
@@ -55,12 +55,12 @@ class @SideView extends SideShow
     console.log "Activating Widgets for Side View..."
     Widget.activateWidgets @views[viewName] # Active widget if exists
 
-    @activeView(viewName)
+    @activateView(viewName)
 
-  activeLoadingView: ->
-    @activeView('loading')
+  activateLoadingView: ->
+    @activateView('loading')
 
-  activeView: (name) ->
+  activateView: (name) ->
     console.log "Active Side View #{name}..."
     view.hide() for viewName, view of @views if viewName != name
     @views[name].show()

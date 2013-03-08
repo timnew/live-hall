@@ -1,4 +1,4 @@
-div(data-widget="@PresenterView")
+div(data-widget="@PresenterView", data-auth-status=isAuthed)
   != assets.css('qrcode')
   != assets.css('sprites')
   != assets.css('bootstrap-extension')
@@ -46,5 +46,6 @@ div(data-widget="@PresenterView")
           .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=noteUrl, data-widget-part='qrCode')
 
   .sideshow-footer
-    button.btn.btn-info(data-action-handler="openEditRoomView") Edit Room
+    button.btn.btn-inverse.pull-left(data-action-handler="openEditRoomView") Edit Room
+    button.btn.btn-info(data-action-handler="signInOrSignOut") Sign In
     button.btn(data-dismiss="sideshow") Cancel

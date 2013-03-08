@@ -37,13 +37,14 @@ exports.presenter = (req, res) ->
     roomId: room.id
     controlUrl: buildUrl("/view/#{room.id}?control", req)
     noteUrl: buildUrl("/view/#{room.id}?control&note", req)
+    isAuthed: req.session.auth?[req.params.roomId] == true # TODO encapsulate this
 
-exports.edit = checkAuth (req, res) ->
+exports.edit = checkAuth 'presenter', 'edit', (req, res) ->
   room = Models.Room.get(req.params.roomId)
   room.updateModel(req.body)
   res.redirect "/room/#{req.params.roomId}"
 
-exports.edit.view = checkAuth (req, res) ->
+exports.edit.view = checkAuth 'presenter', 'edit', (req, res) ->
   room = Models.Room.get(req.params.roomId)
 
   res.render 'room/edit',

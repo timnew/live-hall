@@ -74,7 +74,7 @@ block page-content
           .loading-indicator
         .sideshow-footer
           button.btn(data-dismiss="sideshow") Cancel
-      .sideview.hide(data-sideview="login", href="/room/#{room.id}/login/sideview")
+      .sideview.hide(data-sideview="login", href="/room/#{room.id}/login/sideview?back=presenter&to=presenter")
       .sideview.hide(data-sideview="presenter", href="/room/#{room.id}/presenter")
       .sideview.hide(data-sideview="edit", href="/room/#{room.id}/edit")
 

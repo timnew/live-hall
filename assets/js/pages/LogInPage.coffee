@@ -3,35 +3,36 @@
 
 class @LogInPage extends Widget
   bindDom: ->
+    @sideview = @findParentWidgetByType('SideView')
     @tokenLogInForm = @findSubWidgetByType('@TokenLogInForm')
 
   enhancePage: ->
     @bindActionHandlers()
 
-  login: ->
-    @tokenLogInForm.simulate(true)
+  initialize: ->
+    @navigation = @element.data('navigation')
 
-  fail: ->
-    @tokenLogInForm.simulate(false)
+  signIn: ->
+    @tokenLogInForm.signIn()
+
+  next: ->
+    @sideview.updateView(@navigation.nextView)
+
+  back: ->
+    @sideview.activateView(@navigation.previousView)
 
 class TokenLogInForm extends FormWidget
   bindDom: ->
-    @sideview = @findParentWidgetByType('SideView')
+    @page = @findParentWidgetByType('LogInPage')
     @inputs = @findSubWidgetsByType('@Input')
 
   validate: ->
     super(@inputs)
 
-  simulate: (correct)->
-    window.i = @inputs
-    if correct
-      @inputs[0].value('correct')
-    else
-      @inputs[0].value('wrong')
-
+  signIn: =>
     @ajaxSubmit()
       .always =>
-        @sideview.updateView('edit')
+        @page.next()
 
 
 LogInPage

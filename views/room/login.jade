@@ -1,4 +1,4 @@
-div(data-sideview="login", data-widget="LogInPage")
+div(data-sideview="login", data-widget="LogInPage", data-navigation=navigation)
   != assets.css('qrcode')
 
   .sideshow-header
@@ -14,9 +14,8 @@ div(data-sideview="login", data-widget="LogInPage")
       input(type='hidden', name='id', value=roomId)
 
   .sideshow-footer
-    button.btn.btn-primary(data-action-handler="login") Simulate Log In
-    button.btn.btn-danger(data-action-handler="fail") Simulate Failed Login
-    button.btn(data-dismiss="sideshow") Cancel
+    button.btn.btn-primary(data-action-handler="signIn") Sign In
+    button.btn(data-action-handler="back") Back
 
   != assets.js('jQuery/jQuery.ajaxJson')
   != assets.js('pages/LogInPage')
