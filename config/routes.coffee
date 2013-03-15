@@ -11,7 +11,10 @@ exports = module.exports = (app) ->
   app.get '/room/:roomId/presenter', Routes.room.presenter
 
   app.get '/room/:roomId/login/sideview', Routes.auth.login.sideview
+  app.get '/room/:roomId/login/qr', Routes.auth.login.qr
   app.get '/room/:roomId/login', Routes.auth.login
+
+
 
   app.get '/logout', Routes.auth.logout
 

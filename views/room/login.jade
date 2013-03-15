@@ -7,9 +7,16 @@ div(data-sideview="login", data-widget="LogInPage", data-navigation=navigation)
   .sideshow-body
     form.form-horizontal(data-widget="@TokenLogInForm", method="GET", action="/room/#{roomId}/login")
       .control-group(data-widget="@Input")
-        label.control-label(for='logInToken') Token
+        label.control-label(for='logInToken') Enter the Token
         .controls
           input#logInToken.input-xlarge(name="token", type='text', placeholder='Token')
+
+      .control-group(data-widget="@Input")
+        label.control-label(for='logInQr') Or Scan the QRCode with your device
+        .controls
+          #logInQr.qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=logInUrl)
+          span
+            = logInUrl
 
       input(type='hidden', name='id', value=roomId)
 

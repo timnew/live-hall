@@ -1,3 +1,8 @@
+buildUrl = (relativeUrl, req) ->
+  protocol = req.header('X-Forwarded-Protocol') ? 'http'
+  host = req.header('host')
+  "#{protocol}://#{host}#{relativeUrl}"
+
 exports.checkAuth = (back, to, action) ->
   return (req, res) ->
     if req.session.auth?[req.params.roomId]
@@ -20,6 +25,13 @@ exports.login.sideview = (req, res) ->
   res.render 'room/login',
     roomId: req.params.roomId
     navigation: JSON.stringify {previousView: req.query.back, nextView: req.query.to}
+    logInUrl:  buildUrl("/room/#{req.params.roomId}/login/qr", req)
+
+exports.login.qr = (req, res) ->
+  console.log req.query
+
+  res.send(200, req.query)
+
 
 exports.logout = (req, res) ->
   delete req.session.auth
