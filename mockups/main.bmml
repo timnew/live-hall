@@ -1,0 +1,37 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="810" measuredH="500" mockupW="640" mockupH="480">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="170" y="20" w="640" h="480" measuredW="450" measuredH="400" zOrder="0" locked="true" isInGroup="-1">
+      <controlProperties>
+        <text>Live-Hall%0Ahttp%3A//live-hall.herokuapp.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::IconLabel" x="214" y="134" w="-1" h="-1" measuredW="85" measuredH="63" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>slides%26bm%3Bslides.bmml%26bm%3Bslides.bmml%26bm%3Bslides.bmml</href>
+        <icon>ImageIcon%7Clarge</icon>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2244%2C114%2C129%2C177%22%20href%3D%22slides.bmml%22%20alt%3D%22slides%22%20id%3D%223%22/%3E</map>
+        <text>Sample%20Slides</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::IconLabel" x="339" y="134" w="-1" h="-1" measuredW="75" measuredH="63" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ImageIcon%7Clarge</icon>
+        <text>CoffeeScript</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::IconLabel" x="465" y="134" w="-1" h="-1" measuredW="48" measuredH="63" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ImageIcon%7Clarge</icon>
+        <text>Node.js</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::IconLabel" x="570" y="134" w="-1" h="-1" measuredW="52" measuredH="63" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>add%20slides%20-%20snippet%26bm%3Badd%20slides%20-%20snippet.bmml%26bm%3Badd%20slides%20-%20snippet.bmml%26bm%3Badd%20slides%20-%20snippet.bmml</href>
+        <icon>SquaredPlusIcon%7Clarge</icon>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22400%2C114%2C452%2C177%22%20href%3D%22add%2520slides%2520-%2520snippet.bmml%22%20alt%3D%22add%20slides%20-%20snippet%22%20id%3D%226%22/%3E</map>
+        <text>Add%20New</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

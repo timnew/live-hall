@@ -1,0 +1,50 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="810" measuredH="500" mockupW="640" mockupH="480">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="170" y="20" w="640" h="480" measuredW="450" measuredH="400" zOrder="0" locked="true" isInGroup="-1">
+      <controlProperties>
+        <text>Live-Hall%0Ahttp%3A//live-hall.herokuapp.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Title" x="353" y="143" w="-1" h="-1" measuredW="260" measuredH="43" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Sample%20Slides</text>
+      </controlProperties>
+    </control>
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::Image" x="444" y="233" w="76" h="78" measuredW="120" measuredH="120" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <filter>true</filter>
+        <src>../../../../Desktop/chart.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="__group__" x="428" y="200" w="108" h="27" measuredW="108" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::TextInput" x="0" y="0" w="108" h="-1" measuredW="83" measuredH="27" zOrder="0" locked="false" isInGroup="40">
+          <controlProperties>
+            <text>goo.gl/xawf</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="84" y="1" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="1" locked="false" isInGroup="40">
+          <controlProperties>
+            <borderStyle>square</borderStyle>
+            <icon>CopyIcon%7Csmall</icon>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::Button" x="441" y="326" w="-1" h="-1" measuredW="74" measuredH="32" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>24</size>
+        <text>View</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::LinkBar" x="421" y="365" w="-1" h="-1" measuredW="123" measuredH="19" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <hrefs>slides%26bm%3Bslides.bmml%26bm%3Bslides.bmml%26bm%3Bslides.bmml%2Cpresenter%26bm%3Bpresenter.bmml%26bm%3Bpresenter.bmml%26bm%3Bpresenter.bmml</hrefs>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22251%2C347%2C297%2C360%22%20href%3D%22slides.bmml%22%20alt%3D%22slides%22%20id%3D%2242%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22315%2C347%2C374%2C360%22%20href%3D%22presenter.bmml%22%20alt%3D%22presenter%22%20id%3D%2242%22/%3E%0A</map>
+        <text>Sharing%2C%20Presenter</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
