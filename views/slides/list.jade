@@ -1,0 +1,21 @@
+extends ../page
+
+block page-content
+  .container
+    .row
+      ul.thumbnails
+        - for(var i=0; i< 5; i++)
+          li.span3
+            .thumbnail
+              a(href="#")
+                img(data-src="holder.js/260x195")
+                h3
+                  Sample Slides
+
+        li.span3
+          .thumbnail(style="width: 260px; height:255px;")
+            a(href="#")
+              img(src="/svg/plus.svg", style="width: 100px; height: 100px; margin: 77px 80px;"))
+
+block body-scripts
+  != assets.js('holder')
