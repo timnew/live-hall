@@ -1,0 +1,39 @@
+extends ../page
+
+block stylesheets
+  != assets.css('slides/new')
+
+block page-content
+  .container
+    .row
+      .span12
+        h1.page-title Add Slides
+
+    form.form-page
+      .row
+        .span4
+          .control-group.horizontal
+            label.control-label Theme
+            .controls
+              select
+                option slides.js
+                option reveal.js
+        .span4
+          .control-group.horizontal
+            label.control-label Format
+            .controls
+              select
+                option jade
+                option html
+      .row
+        .span12
+          .control-group.fullfill
+            label.control-label Slides Html
+            .controls
+              textarea(rows="15").span12
+      .row
+        .span12
+          .control-group.form-actions
+            .controls
+              button.btn.btn-primary(type="submit") Upload
+              button.btn Cancel
