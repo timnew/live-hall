@@ -2,7 +2,9 @@ exports.list = (req, res) ->
   res.render('slides/list')
 
 exports.new = (req, res) ->
-  raise 'not impelemented'
+  console.log req.body
+
+  res.send 'ok'
 
 exports.new.view = (req, res) ->
   res.render('slides/new')

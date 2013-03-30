@@ -9,28 +9,28 @@ block page-content
       .span12
         h1.page-title Add Slides
 
-    form.form-page
+    form.form-page(method="POST", action="/slides/new")
       .row
         .span4
           .control-group.horizontal
-            label.control-label Theme
+            label.control-label(for="theme") Theme
             .controls
-              select
-                option slides.js
-                option reveal.js
+              select#theme(name="theme")
+                option(value="slidesjs") slides.js
+                option(value="revealjs") reveal.js
         .span4
           .control-group.horizontal
-            label.control-label Format
+            label.control-label(for="format") Format
             .controls
-              select
-                option jade
-                option html
+              select#format(name="format")
+                option(value="jade") jade
+                option(value="html") html
       .row
         .span12
           .control-group.fullfill
-            label.control-label Slides Html
+            label.control-label(for="content") Slides Html
             .controls
-              textarea(rows="15").span12
+              textarea#content(name="content", rows="15").span12
       .row
         .span12
           .control-group.form-actions
