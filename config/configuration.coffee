@@ -7,17 +7,14 @@ class Config
 class Config.development extends Config
   port: 3009
   redis:
-    host: 'localhost'
-    port: 6379
+    uri: 'redis://localhost:6379'
   mongo:
     uri: 'mongodb://localhost'
 
 class Config.heroku extends Config
   redis:
-    host: "pub-redis-11399.us-east-1-4.3.ec2.garantiadata.com"
-    port: 11399
-    password: "YiwTZvduQHWSrzdm"
+    uri: process.env.REDISCLOUD_URL
   mongo:
-    uri: 'mongodb://livehall:livehall@ds043487.mongolab.com:43487/heroku_app12102144'
+    uri: process.env.MONGOLAB_URI
 
 module.exports = new Config[process.env.NODE_ENV]()
