@@ -11,7 +11,7 @@ exports.new = (req, res) ->
     if err?
       res.send 500, err
     else
-      res.redirect '/'
+      res.redirect '/slides'
 
 exports.new.view = (req, res) ->
   res.render('slides/new')

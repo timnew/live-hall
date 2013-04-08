@@ -1,0 +1,100 @@
+extends page
+
+block stylesheets
+  link(href='/live-hall/home/home.css', rel='stylesheet')
+  != assets.css('bootstrap-extension')
+
+block navbar
+  .container
+    .navbar.navbar-inverse
+      .navbar-inner
+        button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.brand(href='#', onclick="$('#home-carousel').carousel(0)") Live Hall
+
+        .nav-collapse.collapse
+          ul.nav
+            li
+              a(href='#', onclick="$('#home-carousel').carousel(1)") Rooms
+            li
+              a(href='#', onclick="$('#home-carousel').carousel(2)") Slides
+            li
+
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown')
+                | Contact
+                b.caret
+              ul.dropdown-menu
+                li
+                  a(href='http://github.com/timnew') Github
+                li
+                  a(href='https://twitter.com/timnew') Twitter
+                li
+                  a(href='mailto:timnew.wti@gmail.com') Email
+
+block page-content
+  div(data-widget="HomePage")
+    #home-carousel.carousel.slide
+      .carousel-inner
+        .item.active
+          img(src='/live-hall/home/hall.jpg', alt='')
+          .container
+            .carousel-caption
+              h1 Live Hall
+              p.lead
+                | Live hall is an HTML based Slides present solution
+                | It allow you to display the slides over the internet
+              a.btn.btn-large.btn-primary(href='#') Learn More
+        .item
+          img(src='/live-hall/home/public.jpg', alt='')
+          .container
+            .carousel-caption
+              h1 Room
+              p.lead
+                | Room is separate space for you to share the slides to a specific group of people
+                | Only the people in the same room can view your slides
+              a.btn.btn-large.btn-primary(href='/room/list') Find a Room
+              button.btn.btn-large.btn-primary(data-action-handler="createRoom") Create a room
+
+        .item
+          img(src='/live-hall/home/slides.jpg', alt='')
+          .container
+            .carousel-caption
+              h1 Slides
+              p.lead
+                | Slides is the content uploaded and ready to share with a group of people
+                | Only the slides available here can be used shared in a room
+              a.btn.btn-large.btn-primary(href='/slides') Find a slides
+              a.btn.btn-large.btn-primary(href='/slides/new') Upload a Slides
+
+
+      a.left.carousel-control(href='#home-carousel', data-slide='prev') ‹
+      a.right.carousel-control(href='#home-carousel', data-slide='next') ›
+
+    .container.marketing
+      //
+        hr.featurette-divider
+        .featurette
+        hr.featurette-divider
+        .featurette
+        hr.featurette-divider
+        .featurette
+        hr.featurette-divider
+
+  .sideshow.hide(data-widget="SideView")
+    .sideview(data-sideview="loading")
+      .sideshow-header
+         button.close(data-dismiss="sideshow") &times;
+         h3 Loading
+      .sideshow-body
+        .loading-indicator
+      .sideshow-footer
+        button.btn(data-dismiss="sideshow") Cancel
+
+    .sideview.hide(data-sideview="create-room", href="/room/create")
+
+block body-scripts
+  != assets.js('pages/HomePage')
+
