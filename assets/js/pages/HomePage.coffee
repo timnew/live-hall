@@ -14,8 +14,15 @@ class @HomePage extends Widget
       console.log e
     @bindActionHandlers()
 
-  createRoom: ->
-    @sideView.show().updateView('create-room')
+  browseRoom: ->
+    @sideView.show().updateView('browse-room')
+  newRoom: ->
+    @sideView.show().updateView('new-room')
+
+  browseSlides: ->
+    @sideView.show().updateView('browse-slides')
+  newSlides: ->
+    @sideView.show().updateView('new-slides')
 
   showLiveHall: ->
     @homeCarousel.carousel(0)

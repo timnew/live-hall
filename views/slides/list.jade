@@ -1,21 +1,26 @@
-extends ../page
-
-block page-content
-  .container
-    .row
-      ul.thumbnails
-        each slides in  slideses
-          li.span3
-            .thumbnail
-              a(href="#")
-                img(data-src="holder.js/260x195")
-                h3
-                  = slides.name
-
-        li.span3
-          .thumbnail(style="width: 260px; height:255px;")
-            a(href="/slides/new")
-              img(src="/svg/plus.svg", style="width: 100px; height: 100px; margin: 77px 80px;"))
-
-block body-scripts
+div(data-widget="SlidesBrowserPage")
   != assets.js('holder')
+
+  .sideshow-header
+     button.close(data-dismiss="sideshow") &times;
+     h3 Browse Slides
+
+  .sideshow-body
+    ul.thumbnails
+      each slides in  slideses
+        li
+          .thumbnail
+            a(href="#")
+              img(data-src="holder.js/260x195")
+              h3
+                = slides.name
+
+      li.span3
+        .thumbnail(style="width: 260px; height:255px;")
+          a(data-action-handler="newSlides")
+            img(src="/svg/plus.svg", style="width: 100px; height: 100px; margin: 77px 80px;"))
+
+  .sideshow-footer
+    button.btn(data-dismiss="sideshow") Cancel
+
+  != assets.js('pages/SlidesBrowserPage')

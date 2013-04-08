@@ -19,14 +19,14 @@ exports.get = (req, res) ->
      room: room
      viewUrl: buildUrl("/view/#{room.id}", req)
 
-exports.create = (req, res) ->
+exports.new = (req, res) ->
   room = new Models.Room(req.body)
 
   res.redirect "/room/#{room.id}"
 
-exports.create.view = (req, res) ->
-  res.render "room/create",
-             roomId: Models.Room.newRoomId()
+exports.new.view = (req, res) ->
+  res.render "room/new",
+     roomId: Models.Room.newRoomId()
 
 exports.presenter = (req, res) ->
   room =
