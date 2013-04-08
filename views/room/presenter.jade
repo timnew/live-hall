@@ -1,0 +1,51 @@
+div(data-widget="@PresenterView", data-auth-status=isAuthed)
+  != assets.css('qrcode')
+  != assets.css('sprites')
+  != assets.css('bootstrap-extension')
+  != assets.css('editRoom')
+
+  ul.nav.nav-tabs.sideshow-header
+    li.active
+      a(href='#presenter-view', data-toggle="tab")
+        h3 Presenter View
+    li
+      a(href='#note-view', data-toggle="tab")
+        h3 Note View
+
+    button.pull-right.close(data-dismiss="sideshow") &times;
+
+  .sideshow-body.tab-content
+    #presenter-view.tab-pane.active
+      .jumbotron(data-widget="@SharingBlock")
+        p
+          a.btn.btn-primary.btn-xlarge(href=controlUrl, target='_blank', style="margin: 5px;") Presenter View
+
+        .input-prepend.input-append
+          span.add-on
+            i.icon-ex-link
+          input#control-urlbox.input-medium(type="text", readonly, value=controlUrl, data-widget-part='urlBox')
+
+          button.btn.btn-primary#copy-control-url(data-clipboard-target="control-urlbox")
+            i.icon-ex-copy-white
+        div
+          .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=controlUrl, data-widget-part='qrCode')
+
+    #note-view.tab-pane
+      .jumbotron(data-widget="@SharingBlock")
+        p
+          a.btn.btn-primary.btn-xlarge(href=noteUrl, target='_blank', style="margin: 5px;") Note View
+
+        .input-prepend.input-append
+          span.add-on
+            i.icon-ex-link
+          input#note-urlbox.input-medium(type="text", readonly, value=noteUrl, data-widget-part='urlBox')
+
+          button.btn.btn-primary#copy-note-url(data-clipboard-target="note-urlbox")
+            i.icon-ex-copy-white
+        div
+          .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=noteUrl, data-widget-part='qrCode')
+
+  .sideshow-footer
+    button.btn.btn-inverse.pull-left(data-action-handler="openEditRoomView") Edit Room
+    button.btn.btn-info(data-action-handler="signInOrSignOut") Sign In
+    button.btn(data-dismiss="sideshow") Cancel

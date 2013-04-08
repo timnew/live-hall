@@ -1,0 +1,53 @@
+extends ../page
+
+block stylesheets
+  != assets.css('room')
+  != assets.css('sprites')
+  != assets.css('bootstrap-extension')
+  != assets.css('qrcode')
+
+block page-content
+  div(data-widget="RoomPage", data-room=JSON.stringify(room))
+    .container
+      .jumbotron
+        h1(data-widget-part='nameDom')
+        p.lead(data-widget-part='descriptionDom')
+        p
+          span(data-widget-part='clientCountDom')
+          |  users in the room
+
+        #sharing.collapse(data-widget="@SharingBlock")
+          .input-prepend.input-append
+            span.add-on
+              i.icon-ex-link
+            input#urlbox.input-medium(type="text", readonly, value=viewUrl, data-widget-part='urlBox')
+
+            button.btn.btn-primary#copy-url(data-clipboard-target="urlbox")
+              i.icon-ex-copy-white
+          div
+            .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=viewUrl, data-widget-part='qrCode')
+
+        p(style="margin-top:30px;")
+          a.btn.btn-primary.btn-xlarge(href=viewUrl, target='_blank', style="margin: 5px;") Enter Now
+
+        p
+          button.btn.btn-link(data-toggle="collapse", data-target="#sharing") Sharing
+          |
+          button.btn.btn-link(data-action-handler="openPresenterView") I'm the Presenter
+
+    .sideshow.hide(data-widget="SideView")
+      .sideview(data-sideview="loading")
+        .sideshow-header
+           button.close(data-dismiss="sideshow") &times;
+           h3 Loading
+        .sideshow-body
+          .loading-indicator
+        .sideshow-footer
+          button.btn(data-dismiss="sideshow") Cancel
+      .sideview.hide(data-sideview="login", href="/room/#{room.id}/login/sideview?back=presenter&to=presenter")
+      .sideview.hide(data-sideview="presenter", href="/room/#{room.id}/presenter")
+      .sideview.hide(data-sideview="edit", href="/room/#{room.id}/edit")
+
+block body-scripts
+  script(src="/zeroClipboard/ZeroClipboard.min.js")
+  != assets.js('pages/RoomPage')

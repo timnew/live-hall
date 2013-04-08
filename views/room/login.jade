@@ -1,0 +1,28 @@
+div(data-sideview="login", data-widget="LogInPage", data-navigation=navigation)
+  != assets.css('qrcode')
+
+  .sideshow-header
+    button.close(data-dismiss="sideshow") &times;
+    h3 Presenter Log In
+  .sideshow-body
+    form.form-horizontal(data-widget="@TokenLogInForm", method="GET", action="/room/#{roomId}/login")
+      .control-group(data-widget="@Input")
+        label.control-label(for='logInToken') Enter the Token
+        .controls
+          input#logInToken.input-xlarge(name="token", type='text', placeholder='Token')
+
+      .control-group(data-widget="@Input")
+        label.control-label(for='logInQr') Or Scan the QRCode with your device
+        .controls
+          #logInQr.qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=logInUrl)
+          span
+            = logInUrl
+
+      input(type='hidden', name='id', value=roomId)
+
+  .sideshow-footer
+    button.btn.btn-primary(data-action-handler="signIn") Sign In
+    button.btn(data-action-handler="back") Back
+
+  != assets.js('jQuery/jQuery.ajaxJson')
+  != assets.js('pages/LogInPage')
