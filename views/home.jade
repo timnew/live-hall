@@ -6,20 +6,20 @@ block stylesheets
 
 block navbar
   .container
-    .navbar.navbar-inverse
+    .navbar.navbar-inverse(data-widget="HomeNavBar")
       .navbar-inner
         button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
           span.icon-bar
           span.icon-bar
           span.icon-bar
-        a.brand(href='#', onclick="$('#home-carousel').carousel(0)") Live Hall
+        a.brand(href='#', data-action-handler="showLiveHall") Live Hall
 
         .nav-collapse.collapse
           ul.nav
             li
-              a(href='#', onclick="$('#home-carousel').carousel(1)") Rooms
+              a(href='#', data-action-handler="showRoom") Rooms
             li
-              a(href='#', onclick="$('#home-carousel').carousel(2)") Slides
+              a(href='#', data-action-handler="showSlides") Slides
             li
 
             li.dropdown
