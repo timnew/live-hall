@@ -48,6 +48,11 @@ block page-content
       .sideview.hide(data-sideview="presenter", href="/room/#{room.id}/presenter")
       .sideview.hide(data-sideview="edit", href="/room/#{room.id}/edit")
 
+      .sideview.hide(data-sideview="new-room", href="/room/new")
+      .sideview.hide(data-sideview="browse-room", href="/room")
+
+      .sideview.hide(data-sideview="new-slides", href="/slides/new")
+      .sideview.hide(data-sideview="browse-slides", href="/slides")
 block body-scripts
   script(src="/zeroClipboard/ZeroClipboard.min.js")
   != assets.js('pages/RoomPage')

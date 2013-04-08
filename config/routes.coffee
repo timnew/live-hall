@@ -15,6 +15,9 @@ exports = module.exports = (app) ->
   app.get '/slides/new', Routes.slides.new.view
   app.post '/slides/new', Routes.slides.new
 
+  app.get '/slides/:slidesId/edit', Routes.slides.edit.view
+  app.post '/slides/:slidesId/edit', Routes.slides.edit
+
   app.get '/slides', Routes.slides.list
 
   app.get '/live/:roomId', Routes.live.subscribe

@@ -7,10 +7,10 @@ div(data-widget="SlidesBrowserPage")
 
   .sideshow-body
     ul.thumbnails
-      each slides in  slideses
+      each slides in slideses
         li
           .thumbnail
-            a(href="#")
+            a(href="#", data-slides=slides.id, data-action-handler="editSlides")
               img(data-src="holder.js/260x195")
               h3
                 = slides.name

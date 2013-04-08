@@ -2,12 +2,17 @@
 #= require ../widgets/FormWidget
 
 class @SlidesEditorPage extends Widget
+  bindDom: ->
+    @sideview = @findParentWidgetByType('SideView')
   enhancePage: ->
     @bindActionHandlers()
     @slidesInfoRoom = @findSubWidgetByType('@SlidesInfoForm')
 
   submitSlidesInfo: ->
-    @slidesInfoRoom.submit()
+    @slidesInfoRoom
+      .ajaxSubmit()
+      .done =>
+        @sideview.hide()
 
 class SlidesInfoForm extends FormWidget
   bindDom: ->
