@@ -11,6 +11,12 @@ block page-content
 
     form.form-page(method="POST", action="/slides/new")
       .row
+        .span12
+          .control-group.horizontal
+            label.control-label(for="name") Slides Name
+            .controls
+              input#name(name="name",type="text")
+      .row
         .span4
           .control-group.horizontal
             label.control-label(for="theme") Theme
@@ -28,7 +34,7 @@ block page-content
       .row
         .span12
           .control-group.fullfill
-            label.control-label(for="content") Slides Html
+            label.control-label(for="content") Slides Content
             .controls
               textarea#content(name="content", rows="15").span12
       .row

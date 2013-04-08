@@ -4,13 +4,13 @@ block page-content
   .container
     .row
       ul.thumbnails
-        - for(var i=0; i< 5; i++)
+        each slides in  slideses
           li.span3
             .thumbnail
               a(href="#")
                 img(data-src="holder.js/260x195")
                 h3
-                  Sample Slides
+                  = slides.name
 
         li.span3
           .thumbnail(style="width: 260px; height:255px;")

@@ -1,10 +1,17 @@
 exports.list = (req, res) ->
-  res.render('slides/list')
+  Records.Slides.find().select('name').exec (err, slideses) ->
+    console.log slideses
+    res.render 'slides/list',
+      slideses: slideses
 
 exports.new = (req, res) ->
   console.log req.body
 
-  res.send 'ok'
+  Records.Slides.create req.body, (err) ->
+    if err?
+      res.send 500, err
+    else
+      res.redirect '/'
 
 exports.new.view = (req, res) ->
   res.render('slides/new')
