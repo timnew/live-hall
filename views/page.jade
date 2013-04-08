@@ -4,6 +4,48 @@ block page
   #body-wrapper
     .navbar-wrapper
       block navbar
+        .container
+          .navbar.navbar-inverse
+            .navbar-inner
+              button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+              a.brand(href='/') Live Hall
+
+              .nav-collapse.collapse
+                ul.nav
+                  li.dropdown
+                    a(href="#", data-toggle='dropdown')
+                      | Room
+                      b.caret
+                    ul.dropdown-menu
+                      li
+                        a(href='#') Find a Room
+                      li
+                        a(href='#') Create a Room
+
+                  li.dropdown
+                    a(href='#', data-toggle='dropdown')
+                      | Slides
+                      b.caret
+                    ul.dropdown-menu
+                      li
+                        a(href='#') Find a slides
+                      li
+                        a(href='#') Upload a slides
+
+                  li.dropdown
+                    a.dropdown-toggle(href='#', data-toggle='dropdown')
+                      | Contact
+                      b.caret
+                    ul.dropdown-menu
+                      li
+                        a(href='http://github.com/timnew') Github
+                      li
+                        a(href='https://twitter.com/timnew') Twitter
+                      li
+                        a(href='mailto:timnew.wti@gmail.com') Email
 
     block page-content
 
