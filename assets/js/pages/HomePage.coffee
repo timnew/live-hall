@@ -10,8 +10,7 @@ class @HomePage extends Widget
   enhancePage: ->
     @homeCarousel.carousel
       interval: false
-    @homeCarousel.on 'slid', (e) ->
-      console.log e
+
     @bindActionHandlers()
 
   browseRoom: ->

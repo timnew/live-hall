@@ -4,7 +4,7 @@ block page
   #body-wrapper
     .navbar-wrapper
       block navbar
-        .container
+        .container(data-widget="NavBar")
           .navbar.navbar-inverse
             .navbar-inner
               button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
@@ -21,9 +21,9 @@ block page
                       b.caret
                     ul.dropdown-menu
                       li
-                        a(href='#') Find a Room
+                        a(href='#', data-action-handler="browseRoom") Find a Room
                       li
-                        a(href='#') Create a Room
+                        a(href='#', data-action-handler="newRoom") Create a Room
 
                   li.dropdown
                     a(href='#', data-toggle='dropdown')
@@ -31,9 +31,9 @@ block page
                       b.caret
                     ul.dropdown-menu
                       li
-                        a(href='#') Find a slides
+                        a(href='#', data-action-handler="browseSlides") Find a slides
                       li
-                        a(href='#') Upload a slides
+                        a(href='#', data-action-handler="newSlides") Upload a slides
 
                   li.dropdown
                     a.dropdown-toggle(href='#', data-toggle='dropdown')

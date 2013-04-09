@@ -34,7 +34,6 @@ class TokenLogInForm extends FormWidget
       .always =>
         @page.next()
 
-
 LogInPage
   .createNamespace('Loginpage')
   .register(TokenLogInForm,'TokenLogInForm')
