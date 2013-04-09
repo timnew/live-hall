@@ -34,54 +34,56 @@ class SharingBlock extends Widget
       activeClass: 'active'
 
   initialize: ->
-    @shortenUrl();
+    @shortenUrl @urlBox.val(), @updateUrl
 
-  shortenUrl: ->
-    return if @urlBox.data('shorten')
+  updateUrl: (url) =>
+    if typeof(url) is 'string'
+      @urlBox.val(url)
+      @qrCode.update(url)
+    else # in case of url is the gogole api response
+      @updateUrl(url.id)
+
+  shortenUrl: (url, callback) ->
+    if url.match /^https?:\/\/goo.gl\/.*/
+      return callback(url)
 
     postBody =
-      longUrl: @urlBox.val()
+      longUrl: url
 
-    $.postJson 'https://www.googleapis.com/urlshortener/v1/url', postBody,
-       (data) =>
-         @urlBox.val(data.id)
-         @qrCode.update(data.id)
-         @urlBox.data('shorten', true)
+    $.postJson 'https://www.googleapis.com/urlshortener/v1/url', postBody, callback
+
+
+class PresenterSharingBlock extends Widget
+  bindDom: ->
+    @bindWidgetParts()
+    @noteSwitch = @element.find('.switch')
+
+    @links = @element.data('links')
+
+  enhancePage: ->
+    @noteSwitch.on 'switch-change', (e, data) =>
+      @enableNote(data.value)
+
+  initialize: ->
+    @enableNote(false)
+
+  enableNote: (noteEnabled) ->
+    key = if noteEnabled then 'note' else 'presenter'
+    @updateLink @links[key]
+
+  updateLink: (link) ->
+    @hyperlink.attr 'href', link.localUrl
+    @qrCode.update link.mobileUrl
 
 class PresenterView extends Widget
   bindDom: ->
     @sideview = @findParentWidgetByType('SideView')
-    @authButton = @element.find('[data-action-handler=signInOrSignOut]')
 
   enhancePage: ->
     @bindActionHandlers()
 
-  initialize: ->
-    @updateAuthStatus @element.data('authStatus')
-
-  updateAuthStatus: (status) ->
-    @authStatus = status
-
-    if status
-      @authButton.text('Sign Out')
-    else
-      @authButton.text('Sign In')
-
   openEditRoomView: ->
     @sideview.updateView('edit')
-
-  signInOrSignOut: ->
-    if @authStatus
-      @signOut()
-    else
-      @signIn()
-
-  signOut: ->
-    $.get '/logout', =>
-      @updateAuthStatus false
-
-  signIn: ->
-    @sideview.updateView('login')
 
 class EditRoomView extends Widget
   bindDom: ->
@@ -101,4 +103,5 @@ RoomPage
   .createNamespace('RoomPage')
   .register(SharingBlock, 'SharingBlock')
   .register(PresenterView, 'PresenterView')
+  .register(PresenterSharingBlock, 'PresenterSharingBlock')
   .register(EditRoomView, 'EditRoomView')

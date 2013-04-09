@@ -33,11 +33,18 @@ exports.new.view = (req, res) ->
 exports.presenter = (req, res) ->
   room =
     id: req.params.roomId
+
+  links =
+    note:
+      localUrl: buildUrl("/view/#{room.id}?control&note", req)
+      mobileUrl: buildUrl("/view/#{room.id}?control&note", req)
+    presenter:
+      localUrl: buildUrl("/view/#{room.id}?control", req)
+      mobileUrl: buildUrl("/view/#{room.id}?control", req)
+
   res.render 'room/presenter',
-     roomId: room.id
-     controlUrl: buildUrl("/view/#{room.id}?control", req)
-     noteUrl: buildUrl("/view/#{room.id}?control&note", req)
-     isAuthed: req.session.auth?[req.params.roomId] == true # TODO encapsulate this
+    slidesLinks: links
+
 
 exports.edit = (req, res) ->
   room = Models.Room.get(req.params.roomId)
