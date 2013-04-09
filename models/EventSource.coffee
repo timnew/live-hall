@@ -1,46 +1,30 @@
 EventEmitter = require('events').EventEmitter
+_ = require('underscore')
 
 class EventSource extends EventEmitter
-  constructor: (@name) ->
-    @clientCount = 0
+  constructor: (@id) ->
 
-  trigger: (eventData) ->
-    @emit 'event', eventData
+    EventSource.register @id, this
+    @reference = 0
+    @messageId = 0
 
-  removeListener:(event, listner)->
-    super(event, listner)
-    @clientCount--
-    @emit('listenerRemoved')
+  sustain: ->
+    @reference++
 
-  hookOneTimeClient: (req, res) ->
-    req.socket.setTimeout(Infinity)
-
-    onMessage = (eventData) =>
-      res.write "id: #{eventData.id}" if eventData.id?
-      res.write "event: #{eventData.event}" if eventData.event?
-      res.write "data: #{eventData.data}\n\n"
-      @clientCount--
-      @emit('listenerRemoved')
-      res.close()
-
-    @once 'event', onMessageEx
-
-    res.writeHead 200,
-                  'Content-Type': 'text/event-stream'
-                  'Cache-Control': 'no-cache'
-                  'Connection': 'keep-alive'
-    res.write('\n');
-
-    req.on "close", =>
-      @removeListener 'event', onMessage
+  release: ->
+    @reference--
 
   hookClient: (req, res) ->
     req.socket.setTimeout(Infinity)
 
-    onMessage = @createListener(res)
+    onMessage = (message, event, id) ->
+      json = JSON.stringify(message)
+      res.write "id: #{id}\n" if id?
+      res.write "event: #{event}\n" if event?
+      res.write "data: #{json}\n\n"
 
-    @addListener 'event', onMessage
-    @clientCount++
+    @addListener 'data', onMessage
+    @sustain()
 
     res.writeHead 200,
                   'Content-Type': 'text/event-stream'
@@ -49,5 +33,29 @@ class EventSource extends EventEmitter
     res.write('\n');
 
     req.on "close", =>
-      @clientCount--
-      @removeListener 'event', onMessage
+      @removeListener 'data', onMessage
+      @release()
+
+  publish: (message, event, id) ->
+    id ?= @messageId++
+
+    @emit 'data', message, event, id
+
+EventSource.sources = {}
+
+EventSource.register = (id, instance) ->
+  EventSource.sources[id] = instance
+
+EventSource.unregister = (id) ->
+  delete EventSource.sources[id]
+
+EventSource.getOrCreate = (type, name) ->
+  type = type.constructor.name if typeof(type) is 'object'
+
+  id = "#{type}:#{name}"
+
+  EventSource.sources[id] ? new EventSource(id)
+
+exports = module.exports = EventSource
+
+
