@@ -12,14 +12,23 @@ class @RoomPage extends Widget
   enhancePage: ->
     @room = @element.data('room')
     @bindActionHandlers()
+    @bindStatusEventSource()
 
   initialize: ->
     @refresh()
 
+  bindStatusEventSource: ->
+    @statusSource = new EventSource("/view/#{@room.id}/status")
+
+    @statusSource.addEventListener 'clientChanged', (e) =>
+      @updateClientNumber e.data
+
+  updateClientNumber: (number) ->
+    @parts.clientCountDom.text number
+
   refresh: ->
     @parts.nameDom.text @room.name
     @parts.descriptionDom.text @room.description
-    @parts.clientCountDom.text @room.clientCount
 
   openPresenterView: ->
     @sideView.show().updateView('presenter')

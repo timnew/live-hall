@@ -14,8 +14,13 @@ exports.get = (req, res) ->
 
     console.log room
 
+    roomViewModel =
+      name: room.name
+      description: room.description
+      id: room.id
+
     res.render 'room/room',
-       room: room
+       room: roomViewModel
        viewUrl: buildUrl("/view/#{room.id}", req)
 
 exports.new = (req, res) ->
@@ -37,10 +42,10 @@ exports.presenter = (req, res) ->
   links =
     note:
       localUrl: buildUrl("/view/#{room.id}?control&note", req)
-      mobileUrl: buildUrl("/view/#{room.id}?control&note", req)
+      mobileUrl: buildUrl("/launch/#{room.id}?control&note", req)
     presenter:
       localUrl: buildUrl("/view/#{room.id}?control", req)
-      mobileUrl: buildUrl("/view/#{room.id}?control", req)
+      mobileUrl: buildUrl("/launch/#{room.id}?control", req)
 
   res.render 'room/presenter',
     slidesLinks: links
