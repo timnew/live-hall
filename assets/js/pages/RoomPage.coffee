@@ -23,6 +23,9 @@ class @RoomPage extends Widget
     @statusSource.addEventListener 'clientChanged', (e) =>
       @updateClientNumber e.data
 
+    @statusSource.addEventListener 'launched', =>
+      window.location.href= @parts.enterLink.attr('href')
+
   updateClientNumber: (number) ->
     @parts.clientCountDom.text number
 

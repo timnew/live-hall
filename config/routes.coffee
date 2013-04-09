@@ -24,6 +24,7 @@ exports = module.exports = (app) ->
   app.post '/view/:roomId/progress', Routes.presentation.publishProgress
   app.get '/view/:roomId', Routes.presentation.view
 
+  app.get '/launch/:roomId', Routes.presentation.launch
 
 
 
