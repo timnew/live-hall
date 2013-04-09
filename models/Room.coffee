@@ -47,4 +47,4 @@ Room.get = (roomId) ->
 
 exports = module.exports = Room
 
-new Room(id:1, name:'room 1', description:'description')
+new Room(id:1, name:'room 1', description:'description', slidesId: '51640404c0bf39f77f000001')
