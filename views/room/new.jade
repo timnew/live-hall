@@ -16,6 +16,13 @@ div(data-widget="RoomEditorPage")
         .controls
           input#inputPassword.input-xlarge(name="description", type='text', placeholder='Room Description')
 
+      .control-group(data-widget="@Input")
+        label.control-label(for='roomSlides') Room Description
+        .controls
+          select#roomSlides.input-xlarge(name="slides", type='text')
+            each slides in slideses
+              option(value=slides.id)
+                = slides.name
 
       input(type='hidden', name='id', value=roomId)
 

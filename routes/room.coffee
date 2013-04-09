@@ -25,8 +25,10 @@ exports.new = (req, res) ->
   res.redirect "/room/#{room.id}"
 
 exports.new.view = (req, res) ->
-  res.render "room/new",
-     roomId: Models.Room.newRoomId()
+  Records.Slides.find().select('name').exec (err, slideses) ->
+    res.render "room/new",
+      slideses: slideses
+      roomId: Models.Room.newRoomId()
 
 exports.presenter = (req, res) ->
   room =
@@ -43,7 +45,9 @@ exports.edit = (req, res) ->
   res.redirect "/room/#{req.params.roomId}"
 
 exports.edit.view = (req, res) ->
-  room = Models.Room.get(req.params.roomId)
+  Records.Slides.find().select('name').exec (err, slideses) ->
 
-  res.render 'room/edit',
-             room: room
+    room = Models.Room.get(req.params.roomId)
+    res.render 'room/edit',
+               slideses: slideses
+               room: room

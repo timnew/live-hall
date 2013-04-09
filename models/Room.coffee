@@ -11,7 +11,7 @@ class Room extends EventEmitter
     console.log "created", this
 
   updateModel: (data)->
-    data = _.pick data, 'id', 'name', 'description'
+    data = _.pick data, 'id', 'name', 'description', 'slidesId'
     _.extend this, data
     console.log "data", data
 
