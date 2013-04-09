@@ -64,7 +64,6 @@ class SharingBlock extends Widget
 
     $.postJson 'https://www.googleapis.com/urlshortener/v1/url', postBody, callback
 
-
 class PresenterSharingBlock extends Widget
   bindDom: ->
     @bindWidgetParts()
@@ -84,8 +83,9 @@ class PresenterSharingBlock extends Widget
     @updateLink @links[key]
 
   updateLink: (link) ->
-    @hyperlink.attr 'href', link.localUrl
-    @qrCode.update link.mobileUrl
+    @viewLink.attr 'href', link.viewUrl
+    @launchLink.attr 'href', link.launchUrl
+    @qrCode.update link.launchUrl
 
 class PresenterView extends Widget
   bindDom: ->

@@ -41,11 +41,11 @@ exports.presenter = (req, res) ->
 
   links =
     note:
-      localUrl: buildUrl("/view/#{room.id}?control&note", req)
-      mobileUrl: buildUrl("/launch/#{room.id}?control&note", req)
+      viewUrl: buildUrl("/view/#{room.id}?control&note", req)
+      launchUrl: buildUrl("/launch/#{room.id}?control&note", req)
     presenter:
-      localUrl: buildUrl("/view/#{room.id}?control", req)
-      mobileUrl: buildUrl("/launch/#{room.id}?control", req)
+      viewUrl: buildUrl("/view/#{room.id}?control", req)
+      launchUrl: buildUrl("/launch/#{room.id}?control", req)
 
   res.render 'room/presenter',
     slidesLinks: links

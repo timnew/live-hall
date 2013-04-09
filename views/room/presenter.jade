@@ -14,7 +14,13 @@ div(data-widget="@PresenterView")
       p
         .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-widget-part='qrCode')
       p
-        a.btn.btn-primary.btn-xlarge(target='_blank', style="margin: 5px;", data-widget-part='hyperlink') Presenter View
+        .btn-group
+          a.btn.btn-primary.btn-xlarge(data-widget-part='launchLink') Launch Presentation
+          button.btn.btn-primary.btn-xlarge.dropdown-toggle(data-toggle="dropdown")
+            span.caret
+          ul.dropdown-menu
+            li
+              a(target='_blank', data-widget-part='viewLink') Preview Slides
       p
         label.switch.switch-large(data-on-label="Note", data-off-label="Slides")
           input(type="checkbox")
