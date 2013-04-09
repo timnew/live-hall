@@ -11,7 +11,6 @@ exports = module.exports = (app) ->
   app.get '/room/:roomId', Routes.room.get
   app.get '/room', Routes.room.list
 
-
   app.get '/slides/new', Routes.slides.new.view
   app.post '/slides/new', Routes.slides.new
 
@@ -20,10 +19,11 @@ exports = module.exports = (app) ->
 
   app.get '/slides', Routes.slides.list
 
-  app.get '/live/:roomId', Routes.live.subscribe
-  app.post '/live/:roomId', Routes.live.publish
+  app.get '/view/:roomId/status', Routes.presentation.status
+  app.get '/view/:roomId/progress', Routes.presentation.subscribeProgress
+  app.post '/view/:roomId/progress', Routes.presentation.publishProgress
+  app.get '/view/:roomId', Routes.presentation.view
 
-  app.get '/view/:roomId', Routes.view.index
 
 
 

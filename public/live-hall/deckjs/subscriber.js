@@ -6,7 +6,7 @@ $(function () {
     });
 
     var roomId = $('[data-room]').data('room')
-    var liveUrl = "/live/" + roomId
+    var liveUrl = "/view/" + roomId + "/progress"
 
     var source = new EventSource(liveUrl);
     source.addEventListener('message', function (e) {
