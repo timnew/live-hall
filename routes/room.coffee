@@ -4,32 +4,31 @@ buildUrl = (relativeUrl, req) ->
   "#{protocol}://#{host}#{relativeUrl}"
 
 exports.list = (req, res) ->
-  res.render 'room/list',
-     title: 'Public Rooms'
-     rooms: Models.Room.rooms
+  Records.Room.find (err, rooms) ->
+    res.render 'room/list',
+       rooms: rooms
 
 exports.get = (req, res) ->
-  room = Models.Room.get(req.params.roomId)
+  Records.Room.findById req.params.roomId, (err, room) ->
+    res.send 500, err if err?
 
-  res.send(404) unless room?
+    console.log room
 
-  console.log room
-
-  res.render 'room/room',
-     room: room
-     viewUrl: buildUrl("/view/#{room.id}", req)
+    res.render 'room/room',
+       room: room
+       viewUrl: buildUrl("/view/#{room.id}", req)
 
 exports.new = (req, res) ->
   console.log req.body
-  room = new Models.Room(req.body)
-  console.log room
-  res.redirect "/room/#{room.id}"
+  Records.Room.create req.body, (err, room) ->
+    return res.send 500, err if err?
+
+    res.redirect "/room/#{room.id}"
 
 exports.new.view = (req, res) ->
   Records.Slides.find().select('name').exec (err, slideses) ->
     res.render "room/new",
       slideses: slideses
-      roomId: Models.Room.newRoomId()
 
 exports.presenter = (req, res) ->
   room =
@@ -48,15 +47,16 @@ exports.presenter = (req, res) ->
 
 exports.edit = (req, res) ->
   console.log req.body
-  room = Models.Room.get(req.params.roomId)
-  room.updateModel(req.body)
-  console.log room
-  res.redirect "/room/#{req.params.roomId}"
+  Records.Room.findByIdAndUpdate req.params.roomId, req.body, (err, room) ->
+    return res.send 500, err if err?
+
+    res.redirect "/room/#{room.id}"
 
 exports.edit.view = (req, res) ->
-  Records.Slides.find().select('name').exec (err, slideses) ->
+  Records.Room.findById req.params.roomId, (err, room) ->
+    return res.send 500,err if err?
 
-    room = Models.Room.get(req.params.roomId)
-    res.render 'room/edit',
+    Records.Slides.find().select('name').exec (err, slideses) ->
+      res.render 'room/edit',
                slideses: slideses
                room: room
