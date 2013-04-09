@@ -1,7 +1,10 @@
 extend presentation
 
+block slides
+  != content
+
 block live-presentation
+  != assets.js('jQuery/jquery-1.9.1')
   script(src='/live-hall/revealjs/subscriber.js')
   if control
-    script(src='/live-hall/jquery-1.7.2.min.js')
     script(src='/live-hall/revealjs/monitor.js')

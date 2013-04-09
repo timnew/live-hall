@@ -20,8 +20,9 @@ exports.get = (req, res) ->
      viewUrl: buildUrl("/view/#{room.id}", req)
 
 exports.new = (req, res) ->
+  console.log req.body
   room = new Models.Room(req.body)
-
+  console.log room
   res.redirect "/room/#{room.id}"
 
 exports.new.view = (req, res) ->
@@ -45,10 +46,11 @@ exports.presenter = (req, res) ->
   res.render 'room/presenter',
     slidesLinks: links
 
-
 exports.edit = (req, res) ->
+  console.log req.body
   room = Models.Room.get(req.params.roomId)
   room.updateModel(req.body)
+  console.log room
   res.redirect "/room/#{req.params.roomId}"
 
 exports.edit.view = (req, res) ->

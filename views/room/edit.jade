@@ -19,9 +19,9 @@ div(data-widget="@EditRoomView")
       .control-group(data-widget="@Input")
         label.control-label(for='roomSlides') Room Description
         .controls
-          select#roomSlides.input-xlarge(name="slides", type='text', value=room.slidesId)
+          select#roomSlides.input-xlarge(name="slidesId")
             each slides in slideses
-              option(value=slides.id)
+              option(value=slides.id, selected=(room.slidesId == slides.id))
                 = slides.name
 
       input(type='hidden', name='id', value=room.id)
