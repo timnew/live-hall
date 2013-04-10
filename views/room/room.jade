@@ -20,12 +20,12 @@ block page-content
           .input-prepend.input-append
             span.add-on
               i.icon-ex-link
-            input#urlbox.input-medium(type="text", readonly, value=viewUrl, data-widget-part='urlBox')
+            input#urlbox.input-medium(type="text", readonly, value=roomUrl, data-widget-part='urlBox')
 
             button.btn.btn-primary#copy-url(data-clipboard-target="urlbox")
               i.icon-ex-copy-white
           div
-            .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=viewUrl, data-widget-part='qrCode')
+            .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=roomUrl, data-widget-part='qrCode')
 
         p(style="margin-top:30px;")
           a.btn.btn-primary.btn-xlarge(href=viewUrl, target='_blank', style="margin: 5px;", data-widget-part='enterLink') Enter Now

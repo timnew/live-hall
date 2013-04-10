@@ -21,6 +21,7 @@ exports.get = (req, res) ->
 
     res.render 'room/room',
        room: roomViewModel
+       roomUrl: buildUrl("/room/#{room.id}", req)
        viewUrl: buildUrl("/view/#{room.id}", req)
 
 exports.new = (req, res) ->
