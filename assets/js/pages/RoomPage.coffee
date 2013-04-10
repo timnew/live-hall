@@ -3,6 +3,15 @@
 #= require ./QRCodeWidget
 #= require ./RoomEditorPage
 
+shortenUrl = (url, callback) ->
+  if url.match /^https?:\/\/goo.gl\/.*/
+    return callback(url)
+
+  postBody =
+    longUrl: url
+
+  $.postJson 'https://www.googleapis.com/urlshortener/v1/url', postBody, callback
+
 class @RoomPage extends Widget
   bindDom: ->
     @parts = {}
@@ -46,7 +55,7 @@ class SharingBlock extends Widget
       activeClass: 'active'
 
   initialize: ->
-    @shortenUrl @urlBox.val(), @updateUrl
+    shortenUrl @urlBox.val(), @updateUrl
 
   updateUrl: (url) =>
     if typeof(url) is 'string'
@@ -54,15 +63,6 @@ class SharingBlock extends Widget
       @qrCode.update(url)
     else # in case of url is the gogole api response
       @updateUrl(url.id)
-
-  shortenUrl: (url, callback) ->
-    if url.match /^https?:\/\/goo.gl\/.*/
-      return callback(url)
-
-    postBody =
-      longUrl: url
-
-    $.postJson 'https://www.googleapis.com/urlshortener/v1/url', postBody, callback
 
 class PresenterSharingBlock extends Widget
   bindDom: ->
@@ -77,10 +77,23 @@ class PresenterSharingBlock extends Widget
 
   initialize: ->
     @enableNote(false)
+    @shortenUrl()
+
+  shortenUrl: ->
+    shortenUrl @links.note.launchUrl, (data) =>
+      @links.note.launchUrl = data.id
+      @refreshLink()
+
+    shortenUrl @links.presenter.launchUrl, (data) =>
+      @links.presenter.launchUrl = data.id
+      @refreshLink()
 
   enableNote: (noteEnabled) ->
     key = if noteEnabled then 'note' else 'presenter'
     @updateLink @links[key]
+
+  refreshLink: ->
+    @enableNote @noteSwitch.switch('status')
 
   updateLink: (link) ->
     @viewLink.attr 'href', link.viewUrl
