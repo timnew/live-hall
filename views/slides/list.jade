@@ -6,7 +6,7 @@ div(data-widget="SlidesBrowserPage")
      h3 Browse Slides
 
   .sideshow-body
-    ul.thumbnails
+    ul.thumbnails.slides
       each slides in slideses
         li
           .thumbnail
@@ -23,4 +23,5 @@ div(data-widget="SlidesBrowserPage")
   .sideshow-footer
     button.btn(data-dismiss="sideshow") Cancel
 
+  != assets.css('slides')
   != assets.js('pages/SlidesBrowserPage')
