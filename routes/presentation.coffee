@@ -10,7 +10,7 @@ exports.view = (req, res) ->
         roomId: room.id
         engine: slides.theme
         control: !!req.query.control or req.query.control == ''
-        content: slides.content
+        content: slides.render()
 
       console.log options
 
