@@ -10,8 +10,12 @@ div(data-widget="SlidesBrowserPage")
       each slides in slideses
         li
           .thumbnail
-            a(href="#", data-slides=slides.id, data-action-handler="editSlides")
+            if slides.preview() == null
               img(data-src="holder.js/260x195")
+            else
+              .preview
+                != slides.preview()
+            a(href="#", data-slides=slides.id, data-action-handler="editSlides")
               h3
                 = slides.name
 

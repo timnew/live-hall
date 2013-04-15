@@ -1,5 +1,5 @@
 exports.list = (req, res) ->
-  Records.Slides.find().select('name').exec (err, slideses) ->
+  Records.Slides.find().exec (err, slideses) ->
     res.render 'slides/list',
       slideses: slideses
 
