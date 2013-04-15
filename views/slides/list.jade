@@ -16,7 +16,7 @@ div(data-widget="SlidesBrowserPage")
               .preview
                 != slides.preview()
             a(href="#", data-slides=slides.id, data-action-handler="editSlides")
-              h3
+              h4.title(title=slides.name)
                 = slides.name
 
       li.span3
