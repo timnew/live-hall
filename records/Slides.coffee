@@ -33,7 +33,7 @@ SlidesSchema.methods.preview = ->
 
     parser = new htmlparser.Parser(handler)
     parser.parseComplete(rawHtml)
-  catch
+  catch ex
     result = null
   finally
     return result
