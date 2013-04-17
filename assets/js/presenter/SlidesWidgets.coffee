@@ -33,6 +33,7 @@ class @YoutubeVideoPlayer extends SlidesWidget
         when YT.PlayerState.PLAYING
           @slides.publish @messageId,
                                    status: e.data
+                                   progress: @player.getCurrentTime()
 
         when YT.PlayerState.PAUSED
           @slides.publish @messageId,
@@ -42,7 +43,7 @@ class @YoutubeVideoPlayer extends SlidesWidget
     state.status = parseInt(state.status, 10)
     switch state.status
       when YT.PlayerState.PLAYING
-
+        @player.seekTo parseInt(state.progress, 10), true
         @player.playVideo()
 
       when YT.PlayerState.PAUSED
