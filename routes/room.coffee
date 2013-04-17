@@ -66,3 +66,22 @@ exports.edit.view = (req, res) ->
       res.render 'room/edit',
                slideses: slideses
                room: room
+
+exports.lockdown = (req, res) ->
+  console.log req.params
+  console.log req.query
+
+  res.send 200
+
+
+exports.lockdown.view = (req, res) ->
+  Records.Room.findById req.params.roomId, (err, room) ->
+    res.send 500, err if err?
+
+    if room.locker?
+      action = 'unlock'
+    else
+      action = 'lock'
+
+    res.render 'room/lockdown',
+      actionUrl: buildUrl("/room/#{room.id}/lockdown/#{action}", req)

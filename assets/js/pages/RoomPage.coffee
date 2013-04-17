@@ -110,6 +110,10 @@ class PresenterView extends Widget
   openEditRoomView: ->
     @sideview.updateView('edit')
 
+  openLockRoomView: ->
+    @sideview.updateView('lock-down')
+
+
 class EditRoomView extends Widget
   bindDom: ->
     @sideview = @findParentWidgetByType('SideView')
@@ -124,9 +128,20 @@ class EditRoomView extends Widget
   cancel: ->
     @sideview.activateView('presenter')
 
+class LockDownView extends Widget
+  bindDom: ->
+    @sideview = @findParentWidgetByType('SideView')
+
+  enhancePage: ->
+    @bindActionHandlers()
+
+  back: ->
+    @sideview.activateView('presenter')
+
 RoomPage
   .createNamespace('RoomPage')
   .register(SharingBlock, 'SharingBlock')
   .register(PresenterView, 'PresenterView')
   .register(PresenterSharingBlock, 'PresenterSharingBlock')
   .register(EditRoomView, 'EditRoomView')
+  .register(LockDownView, 'LockDownView')

@@ -1,0 +1,18 @@
+div(data-widget="@LockDownView")
+  != assets.css('qrcode')
+  != assets.css('sprites')
+  != assets.css('bootstrap-extension')
+  != assets.css('editRoom')
+  != assets.js('jQuery/bootstrap.switch')
+
+  .sideshow-header
+    button.close(data-dismiss="sideshow") &times;
+    h3 Presenter View
+
+  .sideshow-body
+    .jumbotron
+      p
+        .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=actionUrl)
+
+  .sideshow-footer
+    button.btn(data-action-handler="back") Back
