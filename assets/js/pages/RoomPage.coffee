@@ -1,6 +1,6 @@
 #= require ../widgets/widget
 #= require ../widgets/SideViewWidget
-#= require ./QRCodeWidget
+#= require ../widgets/QRCodeWidget
 #= require ./RoomEditorPage
 
 shortenUrl = (url, callback) ->

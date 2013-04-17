@@ -1,6 +1,6 @@
 #= require ../widgets/widget
 #= require ../widgets/SideViewWidget
-#= require ./QRCodeWidget
+#= require ../widgets/QRCodeWidget
 
 class @HomePage extends Widget
   bindDom: ->
