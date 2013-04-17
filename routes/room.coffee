@@ -56,6 +56,8 @@ exports.edit = (req, res) ->
   Records.Room.findByIdAndUpdate req.params.roomId, req.body, (err, room) ->
     return res.send 500, err if err?
 
+    Models.EventSource.tapIfExists 'Slides', req.params.roomId, (source) ->
+      source.publish true, 'refresh'
     res.redirect "/room/#{room.id}"
 
 exports.edit.view = (req, res) ->

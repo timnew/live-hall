@@ -18,4 +18,7 @@ $(function () {
         }
     });
 
+    source.addEventListener('refresh', function(e) {
+        window.location.reload(true);
+    });
 });

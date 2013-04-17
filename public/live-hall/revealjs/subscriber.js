@@ -10,4 +10,8 @@
 
         Reveal.slide(data.h, data.v);
     });
+
+    source.addEventListener('refresh', function(e) {
+        window.location.reload(true);
+    });
 })();

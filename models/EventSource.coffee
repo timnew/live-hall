@@ -50,12 +50,24 @@ EventSource.register = (id, instance) ->
 EventSource.unregister = (id) ->
   delete EventSource.sources[id]
 
-EventSource.getOrCreate = (type, name) ->
+getId = (type, name) ->
   type = type.constructor.name if typeof(type) is 'object'
 
-  id = "#{type}:#{name}"
+  "#{type}:#{name}"
 
+EventSource.get = (type, name) ->
+  id = getId(type, name)
+  EventSource.sources[id]
+
+EventSource.getOrCreate = (type, name) ->
+  id = getId(type, name)
   EventSource.sources[id] ? new EventSource(id)
+
+EventSource.tapIfExists = (type, name, action) ->
+  source = @get(type, name)
+
+  if source?
+    action(source)
 
 exports = module.exports = EventSource
 
