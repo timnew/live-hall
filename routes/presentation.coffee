@@ -9,6 +9,7 @@ exports.view = (req, res) ->
       isPresenter = !!req.query.control or req.query.control == ''
 
       options =
+        title: "#{room.name} - #{slides.name}"
         roomId: room.id
         engine: slides.theme
         isPresenter: isPresenter
