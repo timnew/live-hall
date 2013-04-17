@@ -29,42 +29,43 @@ html
     // Required Modernizr file
     script(src='/deckjs/modernizr.custom.js')
 
-  body.deck-container(data-room=roomId)
-    // Begin slides. Just make elements with a class of slide.
+  body
+    .deck-container(data-widget=widgetName, data-room=roomId)
+      // Begin slides. Just make elements with a class of slide.
 
-    block slides
-      section.slide
-        h1 Slide
+      block slides
+        section.slide
+          h1 Slide
 
-      section.slide
-        h1 Content
+        section.slide
+          h1 Content
 
-      section.slide
-        h1 Here
+        section.slide
+          h1 Here
 
-    // End slides.
+      // End slides.
 
-    // Begin extension snippets. Add or remove as needed.
+      // Begin extension snippets. Add or remove as needed.
 
-    // deck.navigation snippet
-    a.deck-prev-link(href='#', title='Previous') ←
-    a.deck-next-link(href='#', title='Next') →
+      // deck.navigation snippet
+      a.deck-prev-link(href='#', title='Previous') ←
+      a.deck-next-link(href='#', title='Next') →
 
-    // deck.status snippet
-    p.deck-status
-      span.deck-status-current
-      | /
-      span.deck-status-total
+      // deck.status snippet
+      p.deck-status
+        span.deck-status-current
+        | /
+        span.deck-status-total
 
-    // deck.goto snippet
-    form.goto-form(action='.', method='get')
-      label(for='goto-slide') Go to slide:
-      input#goto-slide(type='text', name='slidenum', list='goto-datalist')
-      datalist#goto-datalist
-      input(type='submit', value='Go')
+      // deck.goto snippet
+      form.goto-form(action='.', method='get')
+        label(for='goto-slide') Go to slide:
+        input#goto-slide(type='text', name='slidenum', list='goto-datalist')
+        datalist#goto-datalist
+        input(type='submit', value='Go')
 
-    // deck.hash snippet
-    a.deck-permalink(href='.', title='Permalink to this slide') #
+      // deck.hash snippet
+      a.deck-permalink(href='.', title='Permalink to this slide') #
 
     // End extension snippets.
 
@@ -82,7 +83,7 @@ html
     script(src='/deckjs/extensions/scale/deck.scale.js')
 
     // Live Presentation Extension
-    block live-presentation
+    block body-scripts
       script(src='/deckjs/extensions/live-presentation/subscriber.js')
 
     // Initialize the deck. You can put this in an external file if desired.

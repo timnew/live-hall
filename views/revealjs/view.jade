@@ -3,8 +3,9 @@ extend presentation
 block slides
   != content
 
-block live-presentation
+block body-scripts
   != assets.js('jQuery/jquery-1.9.1')
-  script(src='/live-hall/revealjs/subscriber.js')
-  if control
-    script(src='/live-hall/revealjs/monitor.js')
+  if isPresenter
+    != assets.js('presenter/RevealJsPresenter')
+  else
+    != assets.js('presenter/RevealJsViewer')

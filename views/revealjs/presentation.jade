@@ -19,10 +19,10 @@ html(lang='en')
     //if lt IE 9
       script(src='/revealjs/lib/js/html5shiv.js')
   body
-    .reveal
-      // Any section element inside of this container is displayed as a slide
-      .slides(data-room=roomId)
+    .reveal(data-widget=widgetName, data-room=roomId)
+      .slides
         block slides
+        // Any section element inside of this container is displayed as a slide
           section
             h1 Slide
           section
@@ -57,5 +57,4 @@ html(lang='en')
           // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
           ]
       });
-    block live-presentation
-      script(src='/live-hall/revealjs/subscriber.js')
+    block body-scripts

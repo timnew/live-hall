@@ -3,10 +3,11 @@ extend presentation
 block slides
   != content
 
-block live-presentation
-  script(src='/live-hall/deckjs/subscriber.js')
+block body-scripts
+   if isPresenter
+     != assets.js('presenter/DeckJsPresenter')
+   else
+     != assets.js('presenter/DeckJsViewer')
 
-  if control
-    script(src='/live-hall/deckjs/monitor.js')
 
 

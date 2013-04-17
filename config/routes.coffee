@@ -23,8 +23,8 @@ exports = module.exports = (app) ->
   app.get '/slides', Routes.slides.list
 
   app.get '/view/:roomId/status', Routes.presentation.status
-  app.get '/view/:roomId/progress', Routes.presentation.subscribeProgress
-  app.post '/view/:roomId/progress', Routes.presentation.publishProgress
+  app.get '/view/:roomId/events', Routes.presentation.subscribeEvents
+  app.post '/view/:roomId/events', Routes.presentation.publishEvents
   app.get '/view/:roomId', Routes.presentation.view
 
   app.get '/launch/:roomId', Routes.presentation.launch

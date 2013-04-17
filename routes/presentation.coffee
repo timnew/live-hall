@@ -6,10 +6,13 @@ exports.view = (req, res) ->
     Records.Slides.findById room.slidesId, (err, slides) ->
       return res.send 500, err if err?
 
+      isPresenter = !!req.query.control or req.query.control == ''
+
       options =
         roomId: room.id
         engine: slides.theme
-        control: !!req.query.control or req.query.control == ''
+        isPresenter: isPresenter
+        widgetName: if isPresenter then 'SlidesPresenter' else 'SlidesViewer'
         content: slides.render()
 
       console.log options
@@ -25,13 +28,13 @@ exports.status = (req, res) ->
   roomSource = Models.EventSource.getOrCreate('Room', req.params.roomId)
   roomSource.hookClient(req, res)
 
-exports.publishProgress = (req, res) ->
+exports.publishEvents = (req, res) ->
   console.log req.params.roomId, req.body
   slidesSource = Models.EventSource.getOrCreate('Slides', req.params.roomId)
-  slidesSource.publish(req.body)
+  slidesSource.publish(req.body.data, req.body.event)
   res.send 200
 
-exports.subscribeProgress = (req, res) ->
+exports.subscribeEvents = (req, res) ->
   roomSource = Models.EventSource.getOrCreate('Room', req.params.roomId)
 
   slidesSource = Models.EventSource.getOrCreate('Slides', req.params.roomId)
