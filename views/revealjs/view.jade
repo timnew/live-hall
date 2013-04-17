@@ -5,6 +5,9 @@ block slides
 
 block body-scripts
   != assets.js('jQuery/jquery-1.9.1')
+  script(src="//www.youtube.com/iframe_api")
+  != assets.js('presenter/SlidesWidgets')
+
   if isPresenter
     != assets.js('presenter/RevealJsPresenter')
   else

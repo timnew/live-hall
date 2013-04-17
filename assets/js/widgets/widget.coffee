@@ -127,18 +127,41 @@ WidgetLocateMethods =
   findWidgetsByType: (widgetType) ->
     $(item).data('widget') for item in $("[data-widget='#{widgetType}']")
 
+normalizeScope = (scope) ->
+  unless scope?
+    scope = $('body')
+  else if scope instanceof String
+    scope = $(scope)
+  unless scope instanceof jQuery
+    console.error "ERROR: Unknown Scope", scope
+
+  scope
+
 WidgetClassMethods =
   activateOnReady: ->
     $ ->
       Widget.activateWidgets()
 
+  onActivating: (scope = null, callback) ->
+    if scope instanceof Function
+      callback = scope
+      scope = null
+
+    scope = normalizeScope(scope)
+    scope.on 'widget.activating', callback
+
+  onActivated: (scope = null, callback) ->
+    if scope instanceof Function
+      callback = scope
+      scope = null
+
+    scope = normalizeScope(scope)
+    scope.on 'widget.activated', callback
+
   activateWidgets: (scope = null) ->
-    unless scope?
-      scope = $('body')
-    else if scope instanceof String
-      scope = $(scope)
-    unless scope instanceof jQuery
-      console.error "ERROR: Unknown Scope", scope
+    scope = normalizeScope(scope)
+
+    scope.trigger 'widget.activating'
 
     widgets = []
 
@@ -169,6 +192,8 @@ WidgetClassMethods =
 
     for widget in widgets
       widget.initialize()
+
+    scope.trigger 'widget.activated', widgets
 
 $.extend Widget, ContainerMethods, WidgetClassMethods, WidgetLocateMethods
 

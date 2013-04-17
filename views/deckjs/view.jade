@@ -4,10 +4,13 @@ block slides
   != content
 
 block body-scripts
-   if isPresenter
-     != assets.js('presenter/DeckJsPresenter')
-   else
-     != assets.js('presenter/DeckJsViewer')
+  script(src="//www.youtube.com/iframe_api")
+  != assets.js('presenter/SlidesWidgets')
+
+  if isPresenter
+    != assets.js('presenter/DeckJsPresenter')
+  else
+    != assets.js('presenter/DeckJsViewer')
 
 
 
