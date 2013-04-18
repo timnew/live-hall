@@ -1,0 +1,49 @@
+section
+  h1
+    br
+  h1 live hall
+  h1 showcase
+
+section
+  section
+      h1
+        br
+        br
+      h1 Video Player
+    section
+      h2 Embedded Video
+      iframe#YoutubeVideo(data-widget='YoutubeVideoPlayer', height='480', src='http://www.youtube.com/embed/cBlRbrB_Gnc?html5=1', width='853')
+      
+section
+  section
+    h2
+      br
+      br
+    h1 Note View
+  section
+    h2 Vocabulary
+    div
+      br
+    ul
+      li thingamajiggy
+      li.note 某物
+      li mitigation
+      li.note 缓解
+      li monocrystalline
+      li.note 单晶型（硅）
+      li haemolytic streptococcus
+      li.note 溶血性链球菌
+    div
+      button(data-action-handler="toggleNote") Toggle Note
+  section
+    div
+      img(src='http://nodejs.org/images/logo.png', style='background: transparent; border-style: none;')
+    blockquote.note
+      | Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.
+    div
+      img(src='http://coffeescript.org/documentation/images/logo.png', style='background: transparent; border-style: none;')
+    blockquote.note
+      | The golden rule of CoffeeScript is: "It's just JavaScript". The code compiles one-to-one into the equivalent JS, and there is no interpretation at runtime.
+    div
+      button(data-action-handler="toggleNote") Toggle Note
+
