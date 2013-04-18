@@ -19,7 +19,7 @@ class @Slides extends Widget
     @hookEvents()
 
   initialize: ->
-    @updateNote(@element.data('note'))
+    @updateNote(@element.data('note'), false)
 
   publish: (event, data) ->
     console.log "Publish Event: [#{event}]: ", data
@@ -41,9 +41,9 @@ class @Slides extends Widget
     window.location.reload(true)
 
   noteHook: (status) =>
-    @updateNote(status.display == 'true')
+    @updateNote(status.display == 'true', false)
 
-  updateNote: (state) ->
+  updateNote: (state, broadcast = true) ->
     return if @isNoteVisible == state
 
     @isNoteVisible = state
@@ -53,9 +53,9 @@ class @Slides extends Widget
     else
       @element.find('.note').hide()
 
-    if @isPresenter
+    if broadcast and @isPresenter
       @publish 'note',
         display: !!@isNoteVisible
 
-  toggleNote: =>
-    @updateNote(!@isNoteVisible)
+  toggleNote: (broadcast = true) =>
+    @updateNote(!@isNoteVisible, broadcast)
