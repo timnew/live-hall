@@ -29,11 +29,17 @@ class @RoomPage extends Widget
   bindStatusEventSource: ->
     @statusSource = new EventSource("/view/#{@room.id}/status")
 
+    @statusSource.addEventListener 'refresh', =>
+      window.location.reload(true)
+
+    @statusSource.addEventListener 'updateView', (e) =>
+      @sideView.updateView(JSON.parse(e.data))
+
     @statusSource.addEventListener 'clientChanged', (e) =>
       @updateClientNumber e.data
 
     @statusSource.addEventListener 'launched', =>
-      window.location.href= @parts.enterLink.attr('href')
+      window.location.href = @parts.enterLink.attr('href')
 
   updateClientNumber: (number) ->
     @parts.clientCountDom.text number
@@ -97,8 +103,8 @@ class PresenterSharingBlock extends Widget
     @enableNote @noteSwitch.switch('status')
 
   updateLink: (link) ->
-    @viewLink.attr 'href', link.viewUrl
-    @launchLink.attr 'href', link.launchUrl
+    @viewLink?.attr 'href', link.viewUrl
+    @launchLink?.attr 'href', link.launchUrl
     authLink = if @auth? then @auth + link.launchUrl else link.launchUrl
     @qrCode.update authLink
 
@@ -130,7 +136,17 @@ class EditRoomView extends Widget
   cancel: ->
     @sideview.activateView('presenter')
 
-class LockDownView extends Widget
+class LockView extends Widget
+  bindDom: ->
+    @sideview = @findParentWidgetByType('SideView')
+
+  enhancePage: ->
+    @bindActionHandlers()
+
+  back: ->
+    @sideview.activateView('presenter')
+
+class UnlockView extends Widget
   bindDom: ->
     @sideview = @findParentWidgetByType('SideView')
 
@@ -146,4 +162,5 @@ RoomPage
   .register(PresenterView, 'PresenterView')
   .register(PresenterSharingBlock, 'PresenterSharingBlock')
   .register(EditRoomView, 'EditRoomView')
-  .register(LockDownView, 'LockDownView')
+  .register(LockView, 'LockView')
+  .register(UnlockView, 'UnlockView')

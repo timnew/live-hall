@@ -1,0 +1,22 @@
+div(data-widget="@UnlockView")
+  != assets.css('qrcode')
+  != assets.css('sprites')
+  != assets.css('bootstrap-extension')
+  != assets.css('editRoom')
+
+  .sideshow-header
+    button.close(data-dismiss="sideshow") &times;
+    h3
+      = title
+
+  .sideshow-body
+    .jumbotron
+      p
+        | Scan the QRCode with tiqr app to lock down the room
+        | To take presenter action on locked down room
+        | You need to authenticated your self first
+      p
+        .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=actionUrl)
+
+  .sideshow-footer
+    button.btn(data-action-handler="back") Back

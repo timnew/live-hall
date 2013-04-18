@@ -13,6 +13,7 @@ exports.get = (req, res) ->
     res.send 500, err if err?
 
     roomViewModel =
+      sessionId: req.sessionID
       name: room.name
       description: room.description
       id: room.id
@@ -46,17 +47,25 @@ exports.presenter = (req, res) ->
         viewUrl: buildUrl("/view/#{room.id}?control", req)
         launchUrl: buildUrl("/launch/#{room.id}?control", req)
 
+
     if room.authInfo?
       challenge = "af4367da"
-      sessionId = "123456"
+      sessionId = encodeURIComponent(req.sessionID)
       action = "presentation"
-      auth = "tiqrauth://#{room.id}@com.herokuapp.live-hall/#{sessionId}+#{action}/#{challenge}?"
+      authPrefix = "tiqrauth://#{room.id}@com.herokuapp.live-hall/#{sessionId}+#{action}/#{challenge}/LiveHall?"
+
+      authRequired = true
+      authedOrOpen = req.sessionID == room.authedSession
     else
-      auth = null
+      authPrefix = null
+      authRequired = false
+      authedOrOpen = true
 
     res.render 'room/presenter',
       slidesLinks: links
-      auth: auth
+      authPrefix: authPrefix
+      authRequired: authRequired
+      authedOrOpen: authedOrOpen
 
 exports.edit = (req, res) ->
   Records.Room.findByIdAndUpdate req.params.roomId, req.body, (err, room) ->
@@ -81,6 +90,10 @@ exports.lockdown.lock = (req, res) ->
   Records.Room.findByIdAndUpdate req.params.roomId, { authInfo: req.body }, (err, room) ->
     res.send 500 if err?
 
+    roomSource = Models.EventSource.getOrCreate('Room', req.params.roomId)
+
+    roomSource.publish true, 'refresh' #enforce all client to refresh
+
     res.send 'OK'
 
 exports.lockdown.lockMeta = (req, res) ->
@@ -93,7 +106,7 @@ exports.lockdown.lockMeta = (req, res) ->
         displayName: 'Live Hall'
         logoUrl: 'http://nodejs.org/images/logo.png'
         infoUrl: 'http://live-hall.herokuapp.com'
-        authenticationUrl: buildUrl("/room/#{room.id}/lockdown/auth", req)
+        authenticationUrl: buildUrl("/room/#{room.id}/lockdown/unlock", req)
         ocraSuite: "OCRA-1:HOTP-SHA1-6:QH8-S"
         enrollmentUrl: buildUrl("/room/#{room.id}/lockdown/lock", req)
       identity:
@@ -103,28 +116,46 @@ exports.lockdown.lockMeta = (req, res) ->
 unlockActions =
   unlock: (req, res, room, done) ->
     room.authInfo = null
-    room.save done
+    room.authedSession = null
+
+    room.save (err) ->
+      return done(err) if err?
+
+      roomSource = Models.EventSource.getOrCreate('Room', req.params.roomId)
+      roomSource.publish true, 'refresh'
+      done()
+
+  auth: (req, res, room, done) ->
+    oldSession = room.authedSession
+    room.authedSession = req.body.sessionId
+
+    room.save (err) ->
+      return done(err) if err?
+
+      roomSource = Models.EventSource.getOrCreate('Room', req.params.roomId)
+      roomSource.notify oldSession, true, 'refresh'
+      roomSource.notify room.authedSession, 'presenter', 'updateView'
+
+      done()
+
+  presentation: (req, res, room, done) ->
+    #TODO setup temp auth url, and redirect user there.
+    done()
 
 exports.lockdown.unlock = (req, res) ->
   Records.Room.findById req.params.roomId, (err, room) ->
     res.send 500 if err?
-    ###
-      { sessionKey: '123456 presentation',
-      userId: '516fc6cb76dc1579c8000001',
-      response: '775036',
-      language: 'en',
-      notificationType: 'APNS',
-      notificationAddress: '0c33c0e0c015fdf5cf9f608f240693b6914bce6c' }
-    ###
-    [req.body.sesionId, req.body.action] = req.body.sessionKey.split(' ')
+
+    [req.body.sessionId, req.body.action] = req.body.sessionKey.split(' ')
+    req.body.sessionId = decodeURIComponent(req.body.sessionId)
 
     doneCallback = (err) ->
       return res.send 500 if err?
-
       res.send 'OK'
 
     action = unlockActions[req.body.action]
     if action?
+      console.log "Unlock action: #{req.body.action}"
       action(req, res, room, doneCallback)
     else
       res.send 500
@@ -135,19 +166,19 @@ exports.lockdown.view = (req, res) ->
 
     if room.authInfo?
       challenge = "af4367da"
-      sessionId = "123456"
-      action = "unlock"
-      res.render 'room/lockdown',
-         action: "Unlock Room #{room.name}"
-         actionUrl: "tiqrauth://#{room.id}@com.herokuapp.live-hall/#{sessionId}+#{action}/#{challenge}"
+      sessionId = encodeURIComponent(req.sessionID)
+
+      if req.sessionID == room.authedSession
+        action = "unlock"
+      else
+        action = "auth"
+
+      res.render 'room/unlock',
+         title: "Unlock Room #{room.name}"
+         actionUrl: "tiqrauth://#{room.id}@com.herokuapp.live-hall/#{sessionId}+#{action}/#{challenge}/LiveHall"
     else
       enrollMetaUrl = buildUrl("/room/#{room.id}/lockdown/lock", req)
       enrollmentUri = "tiqrenroll://#{enrollMetaUrl}"
-      res.render 'room/lockdown',
-        action: "Lock Room #{room.name}"
+      res.render 'room/lock',
+        roomName: room.name
         actionUrl: enrollmentUri
-
-
-
-
-

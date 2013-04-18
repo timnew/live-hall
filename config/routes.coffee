@@ -12,7 +12,6 @@ exports = module.exports = (app) ->
   app.post '/room/:roomId/lockdown/unlock', Routes.room.lockdown.unlock
   app.get '/room/:roomId/lockdown', Routes.room.lockdown.view
 
-
   app.get '/room/:roomId', Routes.room.get
   app.get '/room', Routes.room.list
 

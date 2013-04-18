@@ -10,22 +10,31 @@ div(data-widget="@PresenterView")
     h3 Presenter View
 
   .sideshow-body
-    .jumbotron(data-widget="@PresenterSharingBlock", data-links=JSON.stringify(slidesLinks), data-auth=auth)
+    .jumbotron(data-widget="@PresenterSharingBlock", data-links=JSON.stringify(slidesLinks), data-auth=authPrefix)
       p
         .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-widget-part='qrCode')
       p
-        .btn-group
-          a.btn.btn-primary.btn-xlarge(data-widget-part='launchLink') Launch
-          button.btn.btn-primary.btn-xlarge.dropdown-toggle(data-toggle="dropdown")
-            span.caret
-          ul.dropdown-menu
-            li
-              a(target='_blank', data-widget-part='viewLink') Preview
+        if authedOrOpen
+          .btn-group
+            a.btn.btn-primary.btn-xlarge(data-widget-part='launchLink') Launch
+            button.btn.btn-primary.btn-xlarge.dropdown-toggle(data-toggle="dropdown")
+              span.caret
+            ul.dropdown-menu
+              li
+                a(target='_blank', data-widget-part='viewLink') Preview
+        else
+          a.btn.btn-primary.btn-xlarge(data-action-handler="openLockRoomView") Authenticate
       p
         label.switch.switch-large(data-on-label="Note", data-off-label="Slides")
           input(type="checkbox")
 
   .sideshow-footer
     button.btn.btn-inverse.pull-left(data-action-handler="openEditRoomView") Edit Room
-    button.btn.btn.btn-warning(data-action-handler="openLockRoomView") Lock Down
+
+    if authRequired && authedOrOpen
+      button.btn.btn.btn-warning(data-action-handler="openLockRoomView") Unlock
+
+    if !authRequired && authedOrOpen
+      button.btn.btn.btn-warning(data-action-handler="openLockRoomView") Lock Down
+
     button.btn(data-dismiss="sideshow") Cancel

@@ -24,7 +24,8 @@ class EventSource extends EventEmitter
       res.write "data: #{json}\n\n"
 
     @sustain()
-    @addListener 'data', onMessage
+    @addListener 'publish', onMessage
+    @addListener req.sessionID, onMessage
 
     res.writeHead 200,
                   'Content-Type': 'text/event-stream'
@@ -35,12 +36,18 @@ class EventSource extends EventEmitter
     req.on "close", =>
       @release()
       @removeListener 'data', onMessage
+      @removeListener req.sessionID, onMessage
 
 
   publish: (message, event, id) ->
     id ?= @messageId++
 
-    @emit 'data', message, event, id
+    @emit 'publish', message, event, id
+
+  notify: (sessionId, message, event, id) ->
+    id ?= @messageId++
+
+    @emit sessionId, message, event, id
 
 EventSource.sources = {}
 

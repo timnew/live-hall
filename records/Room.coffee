@@ -3,6 +3,7 @@ RoomSchema = new Services.Repository.Schema
   description: String
   slidesId: String
   authInfo: String
+  authedSession: String
 
 Room = Services.Repository.model 'Room', RoomSchema
 
