@@ -53,5 +53,5 @@ Widget.onActivated ->
   window.onYouTubeIframeAPIReady = ->
     $(document).trigger('YT.ApiReady')
 
-  $('<script src="//www.youtube.com/iframe_api">').prependTo document
+  $('<script src="//www.youtube.com/iframe_api">').prependTo('body')
 
