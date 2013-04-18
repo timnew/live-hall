@@ -41,9 +41,11 @@ class @Slides extends Widget
     window.location.reload(true)
 
   noteHook: (status) =>
-    @updateNote(status.display)
+    @updateNote(status.display == 'true')
 
   updateNote: (state) ->
+    return if @isNoteVisible == state
+
     @isNoteVisible = state
 
     if state
