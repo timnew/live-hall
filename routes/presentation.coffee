@@ -14,6 +14,7 @@ exports.view = (req, res) ->
         engine: slides.theme
         isPresenter: isPresenter
         widgetName: if isPresenter then 'SlidesPresenter' else 'SlidesViewer'
+        note: !req.query.note or req.query.note == ''
         content: slides.render()
 
       console.log options

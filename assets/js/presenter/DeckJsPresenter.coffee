@@ -1,6 +1,8 @@
 #= require ./DeckJsViewer
 
 class @SlidesPresenter extends SlidesViewer
+  isPresenter: true
+
   enhancePage: ->
     super()
     $(document).bind('deck.change', @onSlideChanged)

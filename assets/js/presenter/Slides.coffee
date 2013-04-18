@@ -11,9 +11,15 @@ class @Slides extends Widget
     @roomId = @element.data('room')
     @eventUrl = "/view/#{@roomId}/events"
 
+  isPresenter: false
+
   enhancePage: ->
+    @bindActionHandlers()
     @eventSource = new EventSource(@eventUrl)
     @hookEvents()
+
+  initialize: ->
+    @updateNote(@element.data('note'))
 
   publish: (event, data) ->
     console.log "Publish Event: [#{event}]: ", data
@@ -33,3 +39,21 @@ class @Slides extends Widget
 
   refreshHook: ->
     window.location.reload(true)
+
+  noteHook: (status) =>
+    @updateNote(status.display)
+
+  updateNote: (state) ->
+    @isNoteVisible = state
+
+    if state
+      @element.find('.note').show()
+    else
+      @element.find('.note').hide()
+
+    if @isPresenter
+      @publish 'note',
+        display: !!@isNoteVisible
+
+  toggleNote: =>
+    @updateNote(!@isNoteVisible)

@@ -1,6 +1,8 @@
 #= require ./RevealJsViewer
 
 class @SlidesPresenter extends SlidesViewer
+  isPresenter: true
+
   enhancePage: ->
     super()
     Reveal.addEventListener 'slidechanged', @onSlideChanged
