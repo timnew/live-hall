@@ -14,9 +14,8 @@ app.configure ->
   app.use express.logger('dev')
   app.use express.bodyParser()
   app.use express.methodOverride()
-  app.use express.cookieParser()
-  app.use express.cookieSession
-    secret: Configuration.cookieSecret
+  app.use express.cookieParser(Configuration.cookieSecret)
+  app.use express.session()
   app.use app.router
 
   app.use require('connect-assets') # customize this in production and heroku environment
