@@ -7,7 +7,9 @@ exports = module.exports = (app) ->
   app.get '/room/:roomId/edit', Routes.room.edit.view
   app.post '/room/:roomId/edit', Routes.room.edit
   app.get '/room/:roomId/presenter', Routes.room.presenter
-  app.get '/room/:roomId/lockdown/:action', Routes.room.lockdown
+  app.get '/room/:roomId/lockdown/lock', Routes.room.lockdown.lockMeta
+  app.post '/room/:roomId/lockdown/lock', Routes.room.lockdown.lock
+  app.post '/room/:roomId/lockdown/unlock', Routes.room.lockdown.unlock
   app.get '/room/:roomId/lockdown', Routes.room.lockdown.view
 
 

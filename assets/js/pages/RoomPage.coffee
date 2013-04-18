@@ -70,6 +70,7 @@ class PresenterSharingBlock extends Widget
     @noteSwitch = @element.find('.switch')
 
     @links = @element.data('links')
+    @auth = @element.data('auth')
 
   enhancePage: ->
     @noteSwitch.on 'switch-change', (e, data) =>
@@ -98,7 +99,8 @@ class PresenterSharingBlock extends Widget
   updateLink: (link) ->
     @viewLink.attr 'href', link.viewUrl
     @launchLink.attr 'href', link.launchUrl
-    @qrCode.update link.launchUrl
+    authLink = if @auth? then @auth + link.launchUrl else link.launchUrl
+    @qrCode.update authLink
 
 class PresenterView extends Widget
   bindDom: ->

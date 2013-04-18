@@ -2,7 +2,7 @@ RoomSchema = new Services.Repository.Schema
   name: String
   description: String
   slidesId: String
-  locker: String
+  authInfo: String
 
 Room = Services.Repository.model 'Room', RoomSchema
 
