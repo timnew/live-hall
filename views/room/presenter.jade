@@ -12,7 +12,15 @@ div(data-widget="@PresenterView")
   .sideshow-body
     .jumbotron(data-widget="@PresenterSharingBlock", data-links=JSON.stringify(slidesLinks), data-auth=authPrefix)
       p
-        .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-widget-part='qrCode')
+        if authPrefix
+          .alert.alert-info
+            h4 Room is locked
+            | Scan the QR with
+            a(href="https://tiqr.org/download/")   TiQr
+
+          .qrcode-large.qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-widget-part='qrCode', data-color="#FF0000")
+        else
+          .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-widget-part='qrCode')
       p
         if authedOrOpen
           .btn-group

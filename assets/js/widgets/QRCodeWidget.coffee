@@ -25,6 +25,8 @@ class QRCodeWidget extends Widget
       height: size
       text: @data
 
+    params.foreground = @element.data('color') if @element.data('color')?
+
     @element.html('') # Remove last one
     @element.qrcode params
 
