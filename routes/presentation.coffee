@@ -26,26 +26,12 @@ exports.launch = (req, res) ->
   roomSource.publish true, 'launched'
   exports.view(req, res)
 
-exports.status = (req, res) ->
-  roomSource = Models.EventSource.getOrCreate('Room', req.params.roomId)
-  roomSource.hookClient(req, res)
-
 exports.publishEvents = (req, res) ->
-  console.log req.params.roomId, req.body
-  slidesSource = Models.EventSource.getOrCreate('Slides', req.params.roomId)
+  slidesSource = Models.EventSource.getOrCreate('Room', req.params.roomId)
   slidesSource.publish(req.body.data, req.body.event)
   res.send 200
 
 exports.subscribeEvents = (req, res) ->
-  roomSource = Models.EventSource.getOrCreate('Room', req.params.roomId)
-
-  slidesSource = Models.EventSource.getOrCreate('Slides', req.params.roomId)
-
-  updateStatus = ->
-    console.log 'clientChanged', slidesSource.reference
-    roomSource.publish slidesSource.reference, 'clientChanged'
-
-  slidesSource.on 'newListener', updateStatus
-  slidesSource.on 'removeListener', updateStatus
+  slidesSource = Models.EventSource.getOrCreate('Room', req.params.roomId)
 
   slidesSource.hookClient(req, res)

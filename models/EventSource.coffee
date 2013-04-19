@@ -3,16 +3,19 @@ _ = require('underscore')
 
 class EventSource extends EventEmitter
   constructor: (@id) ->
-
     EventSource.register @id, this
+    @clients = []
     @reference = 0
     @messageId = 0
 
-  sustain: ->
-    @reference++
+  sustain: (id) ->
+    @clients.push(id) if @clients.indexOf(id) == -1
+    @publish @clients.length, 'clientChanged'
 
-  release: ->
-    @reference--
+  release: (id) ->
+    index = @clients.indexOf(id)
+    @clients.splice(index, 1) if index != -1
+    @publish @clients.length, 'clientChanged'
 
   hookClient: (req, res) ->
     req.socket.setTimeout(Infinity)
@@ -25,7 +28,6 @@ class EventSource extends EventEmitter
       res.write "event: #{event}\n" if event?
       res.write "data: #{json}\n\n"
 
-    @sustain()
     @addListener 'publish', onMessage
     @addListener "#{req.sessionID}", onMessage
 
@@ -35,10 +37,12 @@ class EventSource extends EventEmitter
                   'Connection': 'keep-alive'
     res.write('\n');
 
+    @sustain(req.sessionID)
+
     req.on "close", =>
-      @release()
       @removeListener 'data', onMessage
       @removeListener "#{req.sessionID}", onMessage
+      @release(req.sessionID)
 
 
   publish: (message, event, id) ->

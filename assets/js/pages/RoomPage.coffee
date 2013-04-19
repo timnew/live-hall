@@ -27,7 +27,7 @@ class @RoomPage extends Widget
     @refresh()
 
   bindStatusEventSource: ->
-    @statusSource = new EventSource("/view/#{@room.id}/status")
+    @statusSource = new EventSource("/view/#{@room.id}/events")
 
     @statusSource.addEventListener 'refresh', =>
       window.location.reload(true)

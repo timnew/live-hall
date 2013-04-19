@@ -37,10 +37,10 @@ class @Slides extends Widget
       continue unless capture?
       @eventSource.addEventListener capture[1], wrapHook(hook)
 
-  refreshHook: ->
+  reloadSlidesHook: ->
     window.location.reload(true)
 
-  noteHook: (status) =>
+  changeNoteHook: (status) =>
     @updateNote(status.display == 'true', false)
 
   updateNote: (state, broadcast = true) ->
@@ -54,7 +54,7 @@ class @Slides extends Widget
       @element.find('.note').hide()
 
     if broadcast and @isPresenter
-      @publish 'note',
+      @publish 'changeNote',
         display: !!@isNoteVisible
 
   toggleNote: (broadcast = true) =>
