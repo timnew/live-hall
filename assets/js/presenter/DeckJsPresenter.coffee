@@ -12,6 +12,6 @@ class @SlidesPresenter extends SlidesViewer
 
     @currentPage = to
 
-    @publish 'slidesProgress',
+    @publishEvent 'slidesProgress',
       from: from
       to: to

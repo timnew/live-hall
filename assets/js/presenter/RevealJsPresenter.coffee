@@ -8,6 +8,6 @@ class @SlidesPresenter extends SlidesViewer
     Reveal.addEventListener 'slidechanged', @onSlideChanged
 
   onSlideChanged: (e) =>
-    @publish 'slidesProgress',
+    @publishEvent 'slidesProgress',
       h: e.indexh
       v: e.indexv

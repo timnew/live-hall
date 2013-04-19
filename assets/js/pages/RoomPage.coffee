@@ -1,4 +1,5 @@
 #= require ../widgets/widget
+#= require ../widgets/EventSourceWidget
 #= require ../widgets/SideViewWidget
 #= require ../widgets/QRCodeWidget
 #= require ./RoomEditorPage
@@ -12,7 +13,7 @@ shortenUrl = (url, callback) ->
 
   $.postJson 'https://www.googleapis.com/urlshortener/v1/url', postBody, callback
 
-class @RoomPage extends Widget
+class @RoomPage extends EventSourceWidget
   bindDom: ->
     @parts = {}
     @bindWidgetParts @parts
@@ -21,25 +22,23 @@ class @RoomPage extends Widget
   enhancePage: ->
     @room = @element.data('room')
     @bindActionHandlers()
-    @bindStatusEventSource()
+    @initEventSource("/view/#{@room.id}/events")
+    @hookEvents()
 
   initialize: ->
     @refresh()
 
-  bindStatusEventSource: ->
-    @statusSource = new EventSource("/view/#{@room.id}/events")
+  refreshHook: ->
+    window.location.reload(true)
 
-    @statusSource.addEventListener 'refresh', =>
-      window.location.reload(true)
+  updateViewHook: (viewName) =>
+    @sideView.updateView(viewName)
 
-    @statusSource.addEventListener 'updateView', (e) =>
-      @sideView.updateView(JSON.parse(e.data))
+  clientChangedHook: (count) =>
+    @updateClientNumber count
 
-    @statusSource.addEventListener 'clientChanged', (e) =>
-      @updateClientNumber e.data
-
-    @statusSource.addEventListener 'launched', =>
-      window.location.href = @parts.enterLink.attr('href')
+  launchedHook: =>
+    window.location.href = @parts.enterLink.attr('href')
 
   updateClientNumber: (number) ->
     @parts.clientCountDom.text number

@@ -1,12 +1,6 @@
-#= require ../widgets/widget
+#= require ../widgets/EventSourceWidget
 
-wrapHook = (hook) ->
-  (e) ->
-    data = JSON.parse(e.data)
-    console.log "Recieved Event: [#{e.type}]: ", data
-    hook(data, e.type, e)
-
-class @Slides extends Widget
+class @Slides extends EventSourceWidget
   bindDom: ->
     @roomId = @element.data('room')
     @eventUrl = "/view/#{@roomId}/events"
@@ -15,27 +9,11 @@ class @Slides extends Widget
 
   enhancePage: ->
     @bindActionHandlers()
-    @eventSource = new EventSource(@eventUrl)
+    @initEventSource(@eventUrl)
     @hookEvents()
 
   initialize: ->
     @updateNote(@element.data('note'), false)
-
-  publish: (event, data) ->
-    console.log "Publish Event: [#{event}]: ", data
-    $.post @eventUrl,
-           event: event
-           data: data
-
-  hookEvent: (event, hook) ->
-    @eventSource.addEventListener event, wrapHook(hook)
-
-  hookEvents: (host = this) ->
-    for name, hook of host
-      continue unless typeof(hook) is 'function'
-      capture = name.match /^(\w+)Hook/
-      continue unless capture?
-      @eventSource.addEventListener capture[1], wrapHook(hook)
 
   reloadSlidesHook: ->
     window.location.reload(true)
