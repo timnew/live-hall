@@ -50,7 +50,7 @@ exports.presenter = (req, res) ->
 
     if room.authInfo?
       challenge = "af4367da"
-      sessionId = encodeURIComponent(req.sessionID)
+      sessionId = req.sessionID.replace(/\+/g,'-').replace(/\//g,'_')
       action = "presentation"
       authPrefix = "tiqrauth://#{room.id}@com.herokuapp.live-hall/#{sessionId}+#{action}/#{challenge}/LiveHall?"
 
@@ -100,7 +100,7 @@ exports.lockdown.lockMeta = (req, res) ->
   Records.Room.findById req.params.roomId, (err, room) ->
     res.send 500, err if err?
 
-    res.send
+    metaData =
       service:
         identifier: 'com.herokuapp.live-hall'
         displayName: 'Live Hall'
@@ -112,6 +112,10 @@ exports.lockdown.lockMeta = (req, res) ->
       identity:
         identifier: "#{room.id}"
         displayName: "Room #{room.name}"
+
+    console.log metaData
+
+    res.send metaData
 
 unlockActions =
   unlock: (req, res, room, done) ->
@@ -147,7 +151,7 @@ exports.lockdown.unlock = (req, res) ->
     res.send 500 if err?
 
     [req.body.sessionId, req.body.action] = req.body.sessionKey.split(' ')
-    req.body.sessionId = decodeURIComponent(req.body.sessionId)
+    req.body.sessionId = req.body.sessionId.replace(/-/g,'+').replace(/_/g,'/')
 
     doneCallback = (err) ->
       return res.send 500 if err?
@@ -166,7 +170,7 @@ exports.lockdown.view = (req, res) ->
 
     if room.authInfo?
       challenge = "af4367da"
-      sessionId = encodeURIComponent(req.sessionID)
+      sessionId = req.sessionID.replace(/\+/g,'-').replace(/\//g,'_')
 
       if req.sessionID == room.authedSession
         action = "unlock"

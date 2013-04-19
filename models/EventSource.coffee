@@ -17,7 +17,9 @@ class EventSource extends EventEmitter
   hookClient: (req, res) ->
     req.socket.setTimeout(Infinity)
 
+    console.log "Session Id: #{req.sessionID}"
     onMessage = (message, event, id) ->
+      console.log "Deliver: <#{req.sessionID}>@[#{event}](#{id}) #{message}"
       json = JSON.stringify(message)
       res.write "id: #{id}\n" if id?
       res.write "event: #{event}\n" if event?
@@ -25,7 +27,7 @@ class EventSource extends EventEmitter
 
     @sustain()
     @addListener 'publish', onMessage
-    @addListener req.sessionID, onMessage
+    @addListener "#{req.sessionID}", onMessage
 
     res.writeHead 200,
                   'Content-Type': 'text/event-stream'
@@ -36,18 +38,20 @@ class EventSource extends EventEmitter
     req.on "close", =>
       @release()
       @removeListener 'data', onMessage
-      @removeListener req.sessionID, onMessage
+      @removeListener "#{req.sessionID}", onMessage
 
 
   publish: (message, event, id) ->
     id ?= @messageId++
 
+    console.log "Publish: [#{event}](#{id}) #{message}"
     @emit 'publish', message, event, id
 
   notify: (sessionId, message, event, id) ->
     id ?= @messageId++
 
-    @emit sessionId, message, event, id
+    console.log "Notify: <#{sessionId}>@[#{event}](#{id}) #{message}"
+    @emit "#{sessionId}", message, event, id
 
 EventSource.sources = {}
 
