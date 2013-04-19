@@ -29,7 +29,8 @@ div(data-widget="@PresenterView")
           input(type="checkbox")
 
   .sideshow-footer
-    button.btn.btn-inverse.pull-left(data-action-handler="openEditRoomView") Edit Room
+    if authedOrOpen
+      button.btn.btn-inverse.pull-left(data-action-handler="openEditRoomView") Edit Room
 
     if authRequired && authedOrOpen
       button.btn.btn.btn-warning(data-action-handler="openLockRoomView") Unlock
