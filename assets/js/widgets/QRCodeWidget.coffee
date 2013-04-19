@@ -2,35 +2,30 @@
 # = require_tree ../qrcode
 
 class QRCodeWidget extends Widget
-  options:
-    width: 128
-    height: 128
-
   bindDom: ->
     @data = @element.data('qrcode')
 
   initialize: ->
     @refresh()
 
-  update: (data) ->
+  update: (data, size) ->
     @data = data
-    @refresh()
+    @refresh(size)
 
-  updateSize: (size) ->
-    $.extend @options,
-      width: size
-      height: size
+  detectSize: ->
+    Math.min(@element.width(), @element.height())
 
-    @refresh()
-
-  refresh: ->
+  refresh: (size) ->
     return unless @data?
 
-    params = $.extend {}, @options,
+    size = @detectSize() unless size?
+
+    params =
+      width: size
+      height: size
       text: @data
 
     @element.html('') # Remove last one
-
     @element.qrcode params
 
 Widget.register QRCodeWidget, 'QRCode'
