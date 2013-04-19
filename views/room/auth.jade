@@ -1,0 +1,19 @@
+extends ./TiQrView
+
+block title
+  = "Authenticate to " + roomName
+
+block instruction
+  p
+    | This room is locked down by presenter
+    <br>
+    | Authenticate yourself before perform presenter only operation
+
+block footnote
+  p
+    | To Authenticate yourself
+    <br>
+    | Scan the following QRCode with TiQr app
+    <br>
+    | And identify information from enrollment is needed
+

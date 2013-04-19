@@ -63,7 +63,7 @@ exports.presenter = (req, res) ->
     return res.send 500, err if err?
 
     if room.authInfo?
-      authPrefix = Tiqr.challenge(room, req.sessionID, 'presentation')
+      authPrefix = Tiqr.challenge(room, req.sessionID, 'presentation') + "?"
       authRequired = true
       authedOrOpen = req.sessionID == room.authedSession
     else
@@ -126,13 +126,13 @@ exports.lockdown =
 
       if room.authInfo?
         if req.sessionID == room.authedSession
-          action = "unlock"
+          res.render 'room/unlock',
+                     roomName: room.name
+                     actionUrl: Tiqr.challenge(room, req.sessionID, 'unlock')
         else
-          action = "auth"
-
-        res.render 'room/unlock',
-                   title: "Unlock Room #{room.name}"
-                   actionUrl: Tiqr.challenge(room, req.sessionID, action)
+          res.render 'room/auth',
+                     roomName: room.name
+                     actionUrl: Tiqr.challenge(room, req.sessionID, 'auth')
       else
         res.render 'room/lock',
                    roomName: room.name

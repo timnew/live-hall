@@ -136,17 +136,7 @@ class EditRoomView extends Widget
   cancel: ->
     @sideview.activateView('presenter')
 
-class LockView extends Widget
-  bindDom: ->
-    @sideview = @findParentWidgetByType('SideView')
-
-  enhancePage: ->
-    @bindActionHandlers()
-
-  back: ->
-    @sideview.activateView('presenter')
-
-class UnlockView extends Widget
+class TiQrView extends Widget
   bindDom: ->
     @sideview = @findParentWidgetByType('SideView')
 
@@ -162,5 +152,4 @@ RoomPage
   .register(PresenterView, 'PresenterView')
   .register(PresenterSharingBlock, 'PresenterSharingBlock')
   .register(EditRoomView, 'EditRoomView')
-  .register(LockView, 'LockView')
-  .register(UnlockView, 'UnlockView')
+  .register(TiQrView, 'TiQrView')

@@ -1,22 +1,17 @@
-div(data-widget="@LockView")
-  != assets.css('qrcode')
-  != assets.css('sprites')
-  != assets.css('bootstrap-extension')
-  != assets.css('editRoom')
+extends ./TiQrView
 
-  .sideshow-header
-    button.close(data-dismiss="sideshow") &times;
-    h3
-      = "Lock Down Room " + roomName
+block title
+  = "Lock " + roomName
 
-  .sideshow-body
-    .jumbotron
-      p
-        | Scan the QRCode with tiqr app to lock down the room
-        | To take presenter action on locked down room
-        | You need to authenticated your self first
-      p
-        .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=actionUrl)
+block instruction
+  p
+    | Scan the QRCode with Tiqr to lock down the room
+    <br>
+    | Authentication required to perform presenter operations after the room locked down
 
-  .sideshow-footer
-    button.btn(data-action-handler="back") Back
+block footnote
+  p
+    | To authenticate yourself
+    | scan the QRCode with TiQr
+    <br>
+    | And you can unlock the room after you authenticated yourself

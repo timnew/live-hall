@@ -1,22 +1,17 @@
-div(data-widget="@UnlockView")
-  != assets.css('qrcode')
-  != assets.css('sprites')
-  != assets.css('bootstrap-extension')
-  != assets.css('editRoom')
+extends ./TiQrView
 
-  .sideshow-header
-    button.close(data-dismiss="sideshow") &times;
-    h3
-      = title
+block title
+  = "Unlock Room " + roomName
 
-  .sideshow-body
-    .jumbotron
-      p
-        | Scan the QRCode with tiqr app to lock down the room
-        | To take presenter action on locked down room
-        | You need to authenticated your self first
-      p
-        .qrcode.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=actionUrl)
+block instruction
+  p
+    | To unlock the room scan following QRcode with TiQr
+    <br>
+    | After you unlock the room, remove identity info from TiQr manually
 
-  .sideshow-footer
-    button.btn(data-action-handler="back") Back
+block footnote
+  .alert
+    h4(style="margin-bottom: 5px") Warning!
+    | This action will remove authentication requirement permanently.
+    <br>
+    | Every are opened to perform presenter action in the future.

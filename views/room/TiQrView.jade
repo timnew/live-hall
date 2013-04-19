@@ -1,0 +1,20 @@
+div(data-widget="@TiQrView")
+  != assets.css('qrcode')
+  != assets.css('tiqr')
+
+  .sideshow-header
+    button.close(data-dismiss="sideshow") &times;
+    h3
+      block title
+
+  .sideshow-body
+    .jumbotron
+      block instruction
+
+      p
+        .qrcode.qrcode-large.img-rounded.img-polaroid(data-widget="QRCode", data-qrcode=actionUrl)
+
+      block footnote
+
+  .sideshow-footer
+    button.btn(data-action-handler="back") Back
