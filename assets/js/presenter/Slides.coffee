@@ -32,7 +32,7 @@ class @Slides extends EventSourceWidget
       @element.find('.note').hide()
 
     if broadcast and @isPresenter
-      @publish 'changeNote',
+      @publishEvent 'changeNote',
         display: !!@isNoteVisible
 
   toggleNote: (broadcast = true) =>
