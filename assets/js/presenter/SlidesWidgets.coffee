@@ -31,12 +31,12 @@ class @YoutubeVideoPlayer extends SlidesWidget
     if @isPresenter
       switch e.data
         when YT.PlayerState.PLAYING
-          @slides.publish @messageId,
+          @slides.publishEvent @messageId,
                                    status: e.data
                                    progress: @player.getCurrentTime()
 
         when YT.PlayerState.PAUSED
-          @slides.publish @messageId,
+          @slides.publishEvent @messageId,
                                    status: e.data
 
   videoStatusChangedHook: (state) =>
