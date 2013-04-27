@@ -16,5 +16,6 @@ class Config.heroku extends Config
     uri: process.env.REDISCLOUD_URL
   mongo:
     uri: process.env.MONGOLAB_URI
-
+  cookieSecret: process.env.COOKIE_SECRET
+    
 module.exports = new Config[process.env.NODE_ENV]()
