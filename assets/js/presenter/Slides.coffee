@@ -1,4 +1,5 @@
 #= require ../widgets/EventSourceWidget
+#= require ../leap/leap.js
 
 class @Slides extends EventSourceWidget
   bindDom: ->
@@ -14,6 +15,27 @@ class @Slides extends EventSourceWidget
 
   initialize: ->
     @updateNote(@element.data('note'), false)
+
+    @initLeapMotionController()
+
+  initLeapMotionController: ->     
+    Leap.loop { enableGestures: true }, (frame) =>
+      return if frame.gestures.length is 0
+
+      for gesture in frame.gestures
+        @onLeapGesture gesture, frame
+
+  onLeapGesture: (gesture, frame) ->
+
+  gestureAllowed: true  
+
+  gestureCooled: =>
+    @gestureAllowed = true
+
+  gestureAccepted: ->
+    @gestureAllowed = false
+
+    setTimeout @gestureCooled, 300
 
   reloadSlidesHook: ->
     window.location.reload(true)

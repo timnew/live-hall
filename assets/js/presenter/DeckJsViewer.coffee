@@ -6,3 +6,17 @@ class @SlidesViewer extends Slides
 
     $.deck('go', pageNumber)
 
+	onLeapGesture: (gesture) ->
+		return if @gestureAllowed
+
+		return if gesture.state != 'stop' or gesture.type != 'swipe'
+
+		if gesture.direction[0] < 0 
+			@onLeapSwipe 'next'
+	  else
+	  	@onLeapSwipe 'prev'
+
+	onLeapSwipe: (direction) ->
+		@gestureAccepted()
+		
+		$.deck direction
