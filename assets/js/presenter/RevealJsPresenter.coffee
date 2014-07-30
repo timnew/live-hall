@@ -6,8 +6,11 @@ class @SlidesPresenter extends SlidesViewer
   enhancePage: ->
     super()
     Reveal.addEventListener 'slidechanged', @onSlideChanged
+    Reveal.addEventListener 'fragmentshown', @onSlideChanged
+    Reveal.addEventListener 'fragmenthidden', @onSlideChanged
+      
 
-  onSlideChanged: (e) =>
-    @publishEvent 'slidesProgress',
-      h: e.indexh
-      v: e.indexv
+  onSlideChanged: =>
+    indices = Reveal.getIndices()
+
+    @publishEvent 'slidesProgress', indices      
