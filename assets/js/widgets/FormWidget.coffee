@@ -1,5 +1,5 @@
 #= require ./widget
-# require ../jQuery/jQuery.ajaxJson.js
+# require ../jquery/jquery.ajaxjson.js
 
 class @FormWidget extends Widget
   serialize: ->

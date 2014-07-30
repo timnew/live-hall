@@ -1,4 +1,5 @@
 #= require ./widget
+#= require ../jquery/jquery-ajaxjson
 
 wrapHook = (hook) ->
   (e) ->
