@@ -4,6 +4,12 @@ class @SlidesViewer extends Slides
   slidesProgressHook: (progress) ->
     Reveal.slide progress.h, progress.v, progress.f
 
+  fragmentOffsetHook: (offset) ->
+    if offset > 0
+      Reveal.nextFragment()
+    else
+      Reveal.prevFragment()
+
   onLeapGesture: (gesture) ->
     console.log gesture.state, gesture.type, gesture.direction
 
