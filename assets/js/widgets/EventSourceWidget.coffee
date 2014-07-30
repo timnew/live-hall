@@ -9,7 +9,7 @@ wrapHook = (hook) ->
 class @EventSourceWidget extends Widget
   publishEvent: (event, data) ->
     console.log "Publish Event: [#{event}]: ", data
-    $.post @eventUrl,
+    $.postJson @eventUrl,
            event: event
            data: data
 
